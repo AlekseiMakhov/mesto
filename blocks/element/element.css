@@ -1,0 +1,11 @@
+@import url(./__image/element__image.css);
+
+.element {
+    position: relative;
+    min-height: 361px;
+    display: flex;
+    border-radius: 10px;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: white;
+}

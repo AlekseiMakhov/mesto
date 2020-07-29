@@ -1,0 +1,14 @@
+.add-button__add-icon {
+    width: 22px;
+    height: 22px;
+    background-image: url(../../../images/Add_icon.svg);
+    background-size: cover;
+}
+
+
+@media screen and (max-width: 620px) {
+    .add-button__add-icon {
+        width: 16px;
+        height: 16px;
+    }
+}

@@ -1,12 +1,11 @@
 .page {
     min-width: 320px;
     max-width: 1280px;
-    background-color: #2A2C2F;
+    background-color: black;
     position: relative;
-    font-family: 'Inter';
+    font-family: 'Inter', 'Helvetica', 'Arial';
     color: white;
     margin: auto;
-    justify-content: center;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }

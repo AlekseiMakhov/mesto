@@ -1,0 +1,27 @@
+@import url(./__add-icon/add-button__add-icon.css);
+
+.add-button {
+    display: flex;
+    width: 150px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 2px;
+    background-color: black;
+    margin: 0 0 0 auto;
+    justify-self: end;
+    cursor: pointer;
+}
+
+.add-button:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 920px) {
+    .add-button {
+        width: 100%;
+        margin: 0;
+    }
+}
