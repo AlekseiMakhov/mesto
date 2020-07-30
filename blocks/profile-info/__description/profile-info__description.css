@@ -11,7 +11,7 @@
 
 @media screen and (max-width: 920px) {
     .profile-info__description {
-        margin: 0 0 24px 20px;
+        margin: 0 0 24px 40px;
         text-align: center;
     }
 }
@@ -20,7 +20,7 @@
     .profile-info__description {
         font-size: 14px;
         line-height: 17px;
-        margin: 0 0 14px 20px;
+        margin: 0 0 14px 40px;
         max-width: 200px;
     }
 }
