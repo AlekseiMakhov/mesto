@@ -1,6 +1,7 @@
 @import url(./__title/profile-edit__title.css);
 @import url(./__close-button/profile-edit__close-button.css);
 @import url(./__overlay/profile-edit__overlay.css);
+@import url(./__overlay/_hidden/profile-edit__overlay_hidden.css);
 @import url(./__submit-button/profile-edit__submit-button.css);
 @import url(./__text-input/profile-edit__name-input.css);
 @import url(./__text-input/_margin_change/profile-edit__text-input_margin_change.css);
