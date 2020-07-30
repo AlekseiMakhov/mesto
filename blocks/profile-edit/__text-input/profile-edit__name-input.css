@@ -1,0 +1,16 @@
+.profile-edit__text-input {
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: normal;
+    min-height: 27px;
+    margin: 54px 36px 0;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    vertical-align: top;
+}
+
+@media screen and (max-width: 620px) {
+    .profile-edit__text-input {
+        margin: 24px 20px 0;
+    }
+}

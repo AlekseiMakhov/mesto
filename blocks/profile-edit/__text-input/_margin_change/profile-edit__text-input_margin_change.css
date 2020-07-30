@@ -1,0 +1,9 @@
+.profile-edit__text-input_margin_change {
+    margin-top: 30px;
+}
+
+@media screen and (max-width: 620px) {
+    .profile-edit__text-input_margin_chang {
+        margin-top: 30px;
+    }
+}
