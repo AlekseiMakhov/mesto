@@ -1,41 +1,40 @@
-let name = document.querySelector('.profile-info__name').textContent;
-let description = document.querySelector('.profile-info__description').textContent;
-let displayForm = document.querySelector('.profile-edit__overlay');
+let displayOverlay = document.querySelector('.popup');
+let name = document.querySelector('.profile-info__name');
+let description = document.querySelector('.profile-info__description');
+let editForm = document.querySelector('.profile-edit');
 let nameField = document.querySelector('#name');
 let descField = document.querySelector('#description');
 let editButton = document.querySelector('.profile-info__edit-button');
-let submitButton = document.querySelector('.profile-edit__submit-button');
 let closeButton = document.querySelector('.profile-edit__close-button');
-let hiddenFormModifier = 'profile-edit__overlay_hidden';
+let hiddenFormModifier = 'popup_hidden';
 
 
-function editProfile() {
-
-    displayForm.classList.remove(hiddenFormModifier);
-    nameField.setAttribute('value', name);
-    descField.setAttribute('value', description);
+function editProfile () {
+    displayOverlay.classList.remove(hiddenFormModifier);
+    nameField.value = name.textContent;
+    descField.value = description.textContent;
 }
 
-function closeForm() {
-    displayForm.classList.add(hiddenFormModifier);
+function closeForm () {
+    displayOverlay.classList.add(hiddenFormModifier);
 }
 
-function submitEdit() {
-    name = nameField.value;
-    if (name === '') {
-        name = 'Введите имя';
+function submitEdit (evt) {
+    evt.preventDefault();
+    if (nameField.value === '') {
+        name.textContent = 'Введите имя';
+    } else {
+        name.textContent = nameField.value;
     }
-    description = descField.value;
-    if (description === '') {
-        description = 'Введите описание';
-    }
-    document.querySelector('.profile-info__name').textContent = name;
-    document.querySelector('.profile-info__description').textContent = description;
 
-    closeForm();
-}
+    if (description.textContent === '') {
+        description.textContent = 'Введите описание';
+    } else {
+        description.textContent = descField.value;
+    }
+    closeForm ();
+ }
 
 editButton.addEventListener('click', editProfile);
-submitButton.addEventListener('click', submitEdit);
+editForm.addEventListener('submit', submitEdit);
 closeButton.addEventListener('click', closeForm);
-

@@ -2,13 +2,13 @@
     background-image: url(../../../images/Close_Icon.svg);
     width: 41px;
     height: 41px;
-    position: fixed;
+    position: absolute;
     transform: rotate(45deg);
     object-fit: cover;
     background-size: cover;
     padding: 0;
-    top: calc(50vh - 197px);
-    left: calc(50% + 213px);
+    top: -35px;
+    right: -35px;
     z-index: 2;
     border: none;
     cursor: pointer;
@@ -23,8 +23,8 @@
     .profile-edit__close-button {
         width: 25px;
         height: 25px;
-        top: calc(50vh - 155px);
-        left: calc(50% + 123px);
+        top: -22px;
+        right: -22px;
 
     }
 }

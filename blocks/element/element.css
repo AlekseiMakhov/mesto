@@ -1,11 +1,14 @@
 @import url(./__image/element__image.css);
+@import url(./__like/element__like.css);
+@import url(./__text/element__text.css);
 
 .element {
     position: relative;
-    min-height: 361px;
-    display: flex;
+    display: grid;
     border-radius: 10px;
-    flex-direction: column;
     overflow: hidden;
     background-color: white;
+    grid-template-areas: 'el-image el-image el-image el-image'
+                         'el-text el-text el-text el-like';
+    grid-template-columns: repeat(4, 1fr);                     
 }

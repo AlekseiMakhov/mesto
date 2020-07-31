@@ -8,6 +8,7 @@
     overflow: hidden;
     white-space: nowrap;
     max-width: 500px;
+    text-align: center;
 }
 
 @media screen and (max-width: 620px) {

@@ -1,33 +1,24 @@
 @import url(./__title/profile-edit__title.css);
 @import url(./__close-button/profile-edit__close-button.css);
-@import url(./__overlay/profile-edit__overlay.css);
-@import url(./__overlay/_hidden/profile-edit__overlay_hidden.css);
 @import url(./__submit-button/profile-edit__submit-button.css);
 @import url(./__text-input/profile-edit__name-input.css);
-@import url(./__text-input/_margin_change/profile-edit__text-input_margin_change.css);
 
 .profile-edit {
     width: 430px;
-    min-height: 330px;
     border-radius: 10px;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
-    position: fixed;
-    top: calc(50vh - 155px);
-    left: calc(50% - 215px);
     z-index: 2;
     color: black;
     background-color: white;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 @media screen and (max-width: 620px) {
     .profile-edit {
         width: 250px;
-        min-height: 265px;
         box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
-        top: calc(50vh - 132px);
-        left: calc(50% - 125px);
         border-radius: 8px;
     }
 }
