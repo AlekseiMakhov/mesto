@@ -6,13 +6,10 @@
     height: 100vh;
     z-index: 1;
     background-color: rgba(0, 0, 0, 0.5);
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.popup {
     visibility: hidden;
     opacity: 0;
-    transition: visibility 5s, opacity 5s linear;
+    transition: visibility .3s, opacity .3s linear;
 }

@@ -1,27 +1,26 @@
+const imageAddPopup = document.querySelector('#image'); //всплывающее окно формы добавления карточки
+const addForm = imageAddPopup.querySelector('.popup-form'); //форма добаления карточки
+const imageNameInput = addForm.querySelector('#image-name'); //поле ввода названия карточки
+const imageLinkInput = addForm.querySelector('#image-link'); //поле ввода ссылки
+const imageAddCloseButton = imageAddPopup.querySelector('.popup-form__close-button'); //кнопка закрытия
+const addPlaceButton = document.querySelector('.add-button'); //кнопка добавления карточки
+const cardTempElement = document.querySelector('#place-card').content; //элемент с содержимым шаблона для карточки
+const imageViewPopup = document.querySelector('#image-view'); //всплывающее окно с увеличенным изображением
+const imageViewCloseButton = imageViewPopup.querySelector('.popup-image__close-button'); //кнопка закрытия окна
+const imageViewElement = imageViewPopup.querySelector('.popup-image__image'); //увеличенное изображение
+const imageViewTitle = imageViewPopup.querySelector('.popup-image__title'); //подпись с названием
 
-//
-const imageAddPopup = document.querySelector('#image');
-const addForm = imageAddPopup.querySelector('.popup-form');
-const text1Field = imageAddPopup.querySelector('#text1');
-const text2Field = imageAddPopup.querySelector('#text2');
-const imageAddCloseButton = imageAddPopup.querySelector('.popup-form__close-button');
-const addPlaceButton = document.querySelector('.add-button');
-const cardTempElement = document.querySelector('#place-card').content;
-const deleteButton = document.querySelector('.element__trash-button');
-//
-const imageViewPopup = document.querySelector('#image-view');
-const imageViewCloseButton = imageViewPopup.querySelector('.popup-image__close-button');
-const imageViewElement = imageViewPopup.querySelector('.popup-image__image');
-const imageViewTitle = imageViewPopup.querySelector('.popup-image__title');
-
+//функция открытия/скрытия окна формы добавления карточки
 toggleAddImagePopup = () => {
     imageAddPopup.classList.toggle('popup_opened'); 
 }
 
+//функция открытия/скрытия окна с увеличенным изображением
 toggleImageViewPopup = () => {
     imageViewPopup.classList.toggle('popup_opened');
 }
 
+//Открытие окна с изображением
 openImageView = (item) => {
     toggleImageViewPopup();
     imageViewElement.src = item.src;
@@ -29,45 +28,53 @@ openImageView = (item) => {
     imageViewElement.alt = item.nextElementSibling.nextElementSibling.textContent + '. Фото';
 }
 
+//функция добавления элемента (карточки) в DOM
 addElement = (item) => {
-    const cardElements = document.querySelector('.elements');
-    const elem = cardTempElement.cloneNode(true);
-    const delButton = elem.querySelector('.element__trash-button');
-    const image = elem.querySelector('.element__image');
-    const likeButton = elem.querySelector('.element__like');
+    const cardElements = document.querySelector('.elements'); //объект (секция с карточками)
+    const elem = cardTempElement.cloneNode(true); //клонированный template-тег карточки
+    const delButton = elem.querySelector('.element__trash-button'); //кнопка удаления карточки
+    const image = elem.querySelector('.element__image'); //элемент карточки (изображение)
+    const likeButton = elem.querySelector('.element__like'); //кнопка "лайк"
 
+    //Обработчик события для нажатия на изображение
     image.addEventListener('click', evt => {
         openImageView(evt.target);
     });
 
+    //Обработчик события для кнопки удаления
     delButton.addEventListener('click', evt => {
         evt.target.parentElement.remove();
     });
     
+    //Обработчик события для кнопки "лайк"
     likeButton.addEventListener('click', evt => {
         likeButton.classList.toggle('element__like_liked');
     });
 
+    //заполнение полей карточки
     elem.querySelector('.element__image').src = item.link;
     elem.querySelector('.element__image').alt = item.name + '. Фото';
     elem.querySelector('.element__text').textContent = item.name;
     
+    //добавление карточки в DOM в первую позицию 
     cardElements.prepend(elem);
-};
+}
 
+//фунция заполнения формы карточки
 addPlaceElement = evt => {
-    const item = {name: addForm.querySelector('#text1').value, link: addForm.querySelector('#text2').value};
+    const item = {name: imageNameInput.value, link: imageLinkInput.value};
     evt.preventDefault();
     addElement(item);
     toggleAddImagePopup();   
 }
 
+//заполнеие карточек из массива при загрузке страницы
 initialCards.forEach (item => { 
     const elem = cardTempElement.cloneNode(true);
     addElement(item, elem);
 });
 
-imageAddCloseButton.addEventListener('click', toggleAddImagePopup);
-addPlaceButton.addEventListener('click', toggleAddImagePopup);
-addForm.addEventListener('submit', addPlaceElement);
-imageViewCloseButton.addEventListener('click', toggleImageViewPopup);
+imageAddCloseButton.addEventListener('click', toggleAddImagePopup); //Обработчик события для кнопки закрытия окна формы добавления карточки
+addPlaceButton.addEventListener('click', toggleAddImagePopup); //Обработчик события для кнопки добавления карточки
+addForm.addEventListener('submit', addPlaceElement); //Обработчик события для отправки формы добавления карточки
+imageViewCloseButton.addEventListener('click', toggleImageViewPopup); //Обработчик события для кнопки закрытия окна с изображением
