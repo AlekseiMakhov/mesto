@@ -1,6 +1,14 @@
 .element__image {
     background-color: black;
     grid-area: el-image;
-    max-width: 100%;
-    object-fit: fill;
+    height: 282px;
+    width: 282px;
+    background-size: 100%;
+    overflow: hidden;
+    background-position: center;
+}
+
+.element__image:hover {
+    opacity: .8;
+    cursor: pointer;
 }

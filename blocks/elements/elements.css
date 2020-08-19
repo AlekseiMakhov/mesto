@@ -9,14 +9,15 @@
 
 @media screen and (max-width: 920px) {
     .elements {
-        margin: auto;
-        grid-template-columns: repeat(2, 1fr);
+        padding-left: calc(50% - 292px);
+        grid-template-columns: repeat(2, 282px);
     }
 }
 
 @media screen and (max-width: 620px) {
     .elements {
-        grid-template-columns: repeat(1, 100%);
+        grid-template-columns: repeat(1, 282px);
         padding-top: 36px;
+        padding-left: calc(50% - 141px);
     }
 }
