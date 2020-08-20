@@ -9,28 +9,29 @@ const imageViewPopup = document.querySelector('#image-view'); //всплываю
 const imageViewCloseButton = imageViewPopup.querySelector('.popup-image__close-button'); //кнопка закрытия окна
 const imageViewElement = imageViewPopup.querySelector('.popup-image__image'); //увеличенное изображение
 const imageViewTitle = imageViewPopup.querySelector('.popup-image__title'); //подпись с названием
+const cardElements = document.querySelector('.elements'); //объект (секция с карточками)
 
 //функция открытия/скрытия окна формы добавления карточки
-toggleAddImagePopup = () => {
+const toggleAddImagePopup = () => {
     imageAddPopup.classList.toggle('popup_opened'); 
 }
 
 //функция открытия/скрытия окна с увеличенным изображением
-toggleImageViewPopup = () => {
+const toggleImageViewPopup = () => {
     imageViewPopup.classList.toggle('popup_opened');
 }
 
 //Открытие окна с изображением
-openImageView = (item) => {
+const openImageView = (item) => {
+    const elementTitle = item.parentElement.querySelector('.element__text');  
     toggleImageViewPopup();
     imageViewElement.src = item.src;
-    imageViewTitle.textContent = item.nextElementSibling.nextElementSibling.textContent;
-    imageViewElement.alt = item.nextElementSibling.nextElementSibling.textContent + '. Фото';
+    imageViewTitle.textContent = elementTitle.textContent;
+    imageViewElement.alt = elementTitle.textContent + '. Фото';
 }
 
 //функция добавления элемента (карточки) в DOM
-addElement = (item) => {
-    const cardElements = document.querySelector('.elements'); //объект (секция с карточками)
+const addElement = (item) => {
     const elem = cardTempElement.cloneNode(true); //клонированный template-тег карточки
     const delButton = elem.querySelector('.element__trash-button'); //кнопка удаления карточки
     const image = elem.querySelector('.element__image'); //элемент карточки (изображение)
@@ -61,7 +62,7 @@ addElement = (item) => {
 }
 
 //фунция заполнения формы карточки
-addPlaceElement = evt => {
+const addPlaceElement = evt => {
     const item = {name: imageNameInput.value, link: imageLinkInput.value};
     evt.preventDefault();
     addElement(item);
@@ -70,8 +71,7 @@ addPlaceElement = evt => {
 
 //заполнеие карточек из массива при загрузке страницы
 initialCards.forEach (item => { 
-    const elem = cardTempElement.cloneNode(true);
-    addElement(item, elem);
+    addElement(item);
 });
 
 imageAddCloseButton.addEventListener('click', toggleAddImagePopup); //Обработчик события для кнопки закрытия окна формы добавления карточки

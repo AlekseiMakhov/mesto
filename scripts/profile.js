@@ -8,19 +8,19 @@ const editButton = document.querySelector('.profile-info__edit-button'); //кн�
 const closeButton = displayOverlay.querySelector('.popup-form__close-button'); //кнопка закрытия окна
 
 //функция открытия/скрытия окна редактирования профиля
-toggleInputFormDisplay = () => {
+const toggleInputFormDisplay = () => {
     displayOverlay.classList.toggle('popup_opened');
 }
 
 //функция редактирования профиля
-editProfile = () => {
+const editProfile = () => {
     toggleInputFormDisplay();
     nameField.value = name.textContent;
     descField.value = description.textContent;
 }
 
 //функция отправки формы редактирования профиля
-submitEditing = evt => {
+const submitEditing = evt => {
     evt.preventDefault();
     name.textContent = nameField.value;
     description.textContent = descField.value;
