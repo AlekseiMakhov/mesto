@@ -35,22 +35,26 @@
     </footer>
 
     <section id="profile" class="popup">
-        <form class="popup-form" name="profile-edit">
+        <form class="popup-form" name="profile-edit-form">
             <button type="button" name="Закрыть" class="popup-form__close-button"></button>
             <h3 class="popup-form__title">Редактировать профиль</h3>
-            <input name="name" id="profile-name" type="text" class="popup-form__text-input" placeholder="Введите имя" required>
-            <input name="description" id="profile-description" type="text" class="popup-form__text-input" placeholder="Введите описание" required>
-            <button type="submit" name="Сохранить" class="popup-form__submit-button">Сохранить</button>
+            <input name="name-input" id="name-input" type="text" class="popup-form__text-input" placeholder="Введите имя" required>
+            <span name="name-input-error" class="popup-form__error-text"></span>
+            <input name="about-input" id="about-input" type="text" class="popup-form__text-input" placeholder="Введите описание" required>
+            <span name="about-input-error" class="popup-form__error-text"></span>
+            <button disabled type="submit" name="Сохранить" class="popup-form__submit-button popup-form__submit-button_disabled">Сохранить</button>
         </form>
     </section>
 
     <section id="image" class="popup">
-        <form class="popup-form" name="image-edit">
+        <form class="popup-form" name="image-edit-form">
             <button type="button" name="Закрыть" class="popup-form__close-button"></button>
             <h3 class="popup-form__title">Новое место</h3>
-            <input name="image" id="image-name" type="text" class="popup-form__text-input" placeholder="Название" required>
-            <input name="link" id="image-link" type="text" class="popup-form__text-input" placeholder="Ссылка на картинку" required>
-            <button type="submit" name="Сохранить" class="popup-form__submit-button">Сохранить</button>
+            <input name="image-input" id="image-input" type="text" class="popup-form__text-input" placeholder="Название" required>
+            <span name="image-input-error" class="popup-form__error-text"></span>
+            <input name="link-input" id="link-input" type="text" class="popup-form__text-input" placeholder="Ссылка на картинку" required>
+            <span name="link-input-error" class="popup-form__error-text"></span>
+            <button type="submit" name="Сохранить" class="popup-form__submit-button popup-form__submit-button_disabled" disabled>Сохранить</button>
         </form>
     </section>
 

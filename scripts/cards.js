@@ -10,6 +10,7 @@ const imageViewCloseButton = imageViewPopup.querySelector('.popup-image__close-b
 const imageViewElement = imageViewPopup.querySelector('.popup-image__image'); //увеличенное изображение
 const imageViewTitle = imageViewPopup.querySelector('.popup-image__title'); //подпись с названием
 const cardElements = document.querySelector('.elements'); //объект (секция с карточками)
+const cardTemp = cardTempElement.cloneNode(true); //клонированный template-тег карточки
 
 //функция открытия/скрытия окна формы добавления карточки
 const toggleAddImagePopup = () => {
@@ -31,8 +32,8 @@ const openImageView = (item) => {
 }
 
 //функция добавления элемента (карточки) в DOM
-const addElement = (item) => {
-    const elem = cardTempElement.cloneNode(true); //клонированный template-тег карточки
+const addElement = (item, elem) => {
+    const elem = cardTemp;
     const delButton = elem.querySelector('.element__trash-button'); //кнопка удаления карточки
     const image = elem.querySelector('.element__image'); //элемент карточки (изображение)
     const likeButton = elem.querySelector('.element__like'); //кнопка "лайк"
@@ -56,16 +57,14 @@ const addElement = (item) => {
     elem.querySelector('.element__image').src = item.link;
     elem.querySelector('.element__image').alt = item.name + '. Фото';
     elem.querySelector('.element__text').textContent = item.name;
-    
-    //добавление карточки в DOM в первую позицию 
-    cardElements.prepend(elem);
 }
 
 //фунция заполнения формы карточки
 const addPlaceElement = evt => {
     const item = {name: imageNameInput.value, link: imageLinkInput.value};
     evt.preventDefault();
-    addElement(item);
+    addElement(item, cardTemp);
+    cardElements.prepend(cardTemp);
     toggleAddImagePopup();   
 }
 
