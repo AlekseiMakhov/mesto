@@ -7,8 +7,3 @@
     overflow: hidden;
     background-position: center;
 }
-
-.element__image:hover {
-    opacity: .8;
-    cursor: pointer;
-}
