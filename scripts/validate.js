@@ -44,7 +44,12 @@ const toggleButtonState = (inputList, submitButton, {inactiveButtonClass, ...res
 const isValid = (formElement, inputElement, {...rest}) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
     if (!inputElement.validity.valid) {
-        showInputError(formElement, inputElement, errorElement, inputElement.validationMessage, rest);
+        let validationMessage = inputElement.validationMessage;
+        // Подменяем стандартный текст ошибки
+        if (inputElement.validity.valueMissing) {validationMessage = 'Вы пропустили это поле.'};
+        if (inputElement.validity.typeMismatch) {validationMessage = 'Введите адрес сайта.'};
+        if (inputElement.validity.tooShort) {validationMessage = `Минимальное число символов - ${inputElement.getAttribute('minlength')}.`};
+        showInputError(formElement, inputElement, errorElement, validationMessage, rest);
     } else {
         hideInputError(formElement, inputElement, errorElement, rest);
     }

@@ -17,6 +17,7 @@ popupArray.forEach((item, evt) => {
     page.addEventListener('keydown', evt => {
         if (evt.key === "Escape") {
             close();
+            item.removeEventListener('keydown', closePopup);
         }
     });
 })

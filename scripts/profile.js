@@ -17,6 +17,7 @@ const editProfile = () => {
     toggleInputFormDisplay();
     nameField.value = name.textContent;
     descField.value = description.textContent;
+    displayOverlay.addEventListener('keydown', closePopup);
 }
 
 //функция отправки формы редактирования профиля

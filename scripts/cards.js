@@ -17,6 +17,7 @@ const toggleAddImagePopup = () => {
 //функция открытия/скрытия окна с увеличенным изображением
 const openImageViewPopup = () => {
     imageViewPopup.classList.add('popup_opened');
+    imageViewPopup.addEventListener('keydown', closePopup);
 }
 
 //Открытие окна с изображением
@@ -26,6 +27,7 @@ const openImageView = (item) => {
     imageViewElement.src = item.src;
     imageViewTitle.textContent = elementTitle.textContent;
     imageViewElement.alt = elementTitle.textContent + '. Фото';
+    item.addEventListener('keydown', closePopup);
 }
 
 //функция добавления элемента (карточки) в DOM
@@ -61,11 +63,10 @@ const addElement = (item) => {
 
 //фунция заполнения формы карточки
 const addPlaceElement = evt => {
-    
     const item = {name: imageNameInput.value, link: imageLinkInput.value};
     evt.preventDefault();
     addElement(item);
-    toggleAddImagePopup();   
+    toggleAddImagePopup();
 }
 
 //заполнеие карточек из массива при загрузке страницы
