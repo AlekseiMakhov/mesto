@@ -1,4 +1,4 @@
-.add-button {
+.add-image-button {
     width: 150px;
     height: 50px;
     border: 2px solid #FFFFFF;
@@ -14,12 +14,12 @@
     background-repeat: no-repeat;
 }
 
-.add-button:hover {
+.add-image-button:hover {
     opacity: 0.6;
 }
 
 @media screen and (max-width: 920px) {
-    .add-button {
+    .add-image-button {
         width: 584px;
         margin: 0;
         background-size: 16px 16px;
@@ -27,7 +27,7 @@
 }
 
 @media screen and (max-width: 620px) {
-    .add-button {
+    .add-image-button {
         width: 282px;
         margin: 0;
         background-size: 16px 16px;
