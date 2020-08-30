@@ -6,4 +6,10 @@
     background-size: 100%;
     overflow: hidden;
     background-position: center;
+    position: relative;
+}
+
+.element__image:hover {
+    opacity: .8;
+    cursor: pointer;
 }

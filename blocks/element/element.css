@@ -12,9 +12,5 @@
     background-color: white;
     grid-template-areas: 'el-image el-image el-image el-image'
                          'el-text el-text el-text el-like';
-    grid-template-columns: repeat(4, 1fr);                     
-}
-
-.element:hover {
-    box-shadow: 0 0 16px 0 rgba(234, 235, 228, 0.8);
+    grid-template-columns: repeat(4, 1fr);
 }

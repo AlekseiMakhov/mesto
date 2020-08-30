@@ -12,7 +12,8 @@
     z-index: 2;
     border: none;
     cursor: pointer;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
+    outline: 0;
 }
 
 .popup-form__close-button:hover {

@@ -10,6 +10,7 @@
     grid-area: el-like;
     margin: 31px 18px 30px auto;
     cursor: pointer;
+    outline: 0;
 }
 
 .element__like:hover {
