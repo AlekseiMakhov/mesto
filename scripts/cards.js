@@ -1,5 +1,6 @@
 const imageAddPopup = document.querySelector('#add-image'); //всплывающее окно формы добавления карточки
 const addForm = imageAddPopup.querySelector('.popup-form'); //форма добаления карточки
+const submitAddImageButton = addForm.querySelector('.popup-form__submit-button'); //поле ввода названия карточки
 const imageNameInput = addForm.querySelector('#image-input'); //поле ввода названия карточки
 const imageLinkInput = addForm.querySelector('#link-input'); //поле ввода ссылки
 const addPlaceButton = document.querySelector('.add-image-button'); //кнопка добавления карточки
@@ -9,25 +10,13 @@ const imageViewElement = imageViewPopup.querySelector('.popup-image__image'); //
 const imageViewTitle = imageViewPopup.querySelector('.popup-image__title'); //подпись с названием
 const cardElements = document.querySelector('.elements'); //объект (секция с карточками)
 
-//функция открытия/скрытия окна формы добавления карточки
-const toggleAddImagePopup = () => {
-    imageAddPopup.classList.toggle('popup_opened'); 
-}
-
-//функция открытия/скрытия окна с увеличенным изображением
-const openImageViewPopup = () => {
-    imageViewPopup.classList.add('popup_opened');
-    imageViewPopup.addEventListener('keydown', closePopup);
-}
-
 //Открытие окна с изображением
 const openImageView = (item) => {
     const elementTitle = item.parentElement.querySelector('.element__text');  
-    openImageViewPopup();
+    openPopup(imageViewPopup);
     imageViewElement.src = item.src;
     imageViewTitle.textContent = elementTitle.textContent;
     imageViewElement.alt = elementTitle.textContent + '. Фото';
-    item.addEventListener('keydown', closePopup);
 }
 
 //функция добавления элемента (карточки) в DOM
@@ -66,7 +55,12 @@ const addPlaceElement = evt => {
     const item = {name: imageNameInput.value, link: imageLinkInput.value};
     evt.preventDefault();
     addElement(item);
-    toggleAddImagePopup();
+    imageNameInput.value = '';
+    imageLinkInput.value = '';
+    submitAddImageButton.setAttribute('disabled', '');
+    submitAddImageButton.classList.add(validationElements.inactiveButtonClass);
+    closePopup(imageAddPopup);
+
 }
 
 //заполнеие карточек из массива при загрузке страницы
@@ -74,5 +68,7 @@ initialCards.forEach (item => {
     addElement(item);
 });
 
-addPlaceButton.addEventListener('click', toggleAddImagePopup); //Обработчик события для кнопки добавления карточки
+addPlaceButton.addEventListener('click', () => {
+    openPopup(imageAddPopup);
+});                                                  //Обработчик события для кнопки добавления карточки
 addForm.addEventListener('submit', addPlaceElement); //Обработчик события для отправки формы добавления карточки

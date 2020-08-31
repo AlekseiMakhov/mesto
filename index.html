@@ -42,7 +42,7 @@
             <span id="name-input-error" class="popup-form__error-text"></span>
             <input name="about-input" id="about-input" type="text" minlength="2" maxlength="200" class="popup-form__text-input" placeholder="О себе" required>
             <span id="about-input-error" class="popup-form__error-text"></span>
-            <button disabled type="submit" name="Сохранить" class="popup-form__submit-button popup-form__submit-button_disabled">Сохранить</button>
+            <button type="submit" name="Сохранить" class="popup-form__submit-button popup-form__submit-button_disabled" disabled>Сохранить</button>
         </form>
     </section>
 
@@ -65,6 +65,7 @@
             <h3 class="popup-image__title"></h3>
         </div>
     </section>
+
     <!-- template-тег для вставки карточки с изображением --> 
     <template id="place-card">
         <div class="element">
@@ -74,10 +75,12 @@
             <button type="button" class="element__like"></button>
         </div>
     </template>
+
     <script src="./scripts/initialData.js"></script>
-    <script src="./scripts/closePopups.js"></script>
+    <script src="./scripts/openClosePopups.js"></script>
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/profile.js"></script>
     <script src="./scripts/cards.js"></script>
-    <script src="./scripts/validate.js"></script>
+    
 </body>
 </html>

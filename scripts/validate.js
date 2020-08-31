@@ -17,7 +17,6 @@ const showInputError = (formElement, inputElement, errorElement, validationMessa
 // Функция, которая удаляет класс с ошибкой
 const hideInputError = (formElement, inputElement, errorElement, {inputErrorClass, errorClass}) => {
     inputElement.classList.remove(inputErrorClass);
-    inputElement.classList.remove(inputErrorClass);
     errorElement.classList.remove(errorClass);
     errorElement.textContent = '';
 };
