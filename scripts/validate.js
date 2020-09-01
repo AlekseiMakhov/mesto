@@ -29,7 +29,7 @@ const hasInvalidInput = (inputList) => {
 };
 
 // Функция изменения активности кнопки отправки формы
-const toggleButtonState = (inputList, submitButton, {inactiveButtonClass, ...rest}) => {
+const toggleButtonState = (inputList, submitButton, {inactiveButtonClass}) => {
     if (hasInvalidInput(inputList)) {
         submitButton.classList.add(inactiveButtonClass);
         submitButton.setAttribute('disabled', '');
@@ -43,12 +43,7 @@ const toggleButtonState = (inputList, submitButton, {inactiveButtonClass, ...res
 const isValid = (formElement, inputElement, {...rest}) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
     if (!inputElement.validity.valid) {
-        let validationMessage = inputElement.validationMessage;
-        // Подменяем стандартный текст ошибки
-        if (inputElement.validity.valueMissing) {validationMessage = 'Вы пропустили это поле.'};
-        if (inputElement.validity.typeMismatch) {validationMessage = 'Введите адрес сайта.'};
-        if (inputElement.validity.tooShort) {validationMessage = `Минимальное число символов - ${inputElement.getAttribute('minlength')}.`};
-        showInputError(formElement, inputElement, errorElement, validationMessage, rest);
+        showInputError(formElement, inputElement, errorElement, inputElement.validationMessage, rest);
     } else {
         hideInputError(formElement, inputElement, errorElement, rest);
     }
