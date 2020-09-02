@@ -60,7 +60,6 @@ const addPlaceElement = evt => {
     submitAddImageButton.setAttribute('disabled', '');
     submitAddImageButton.classList.add(validationElements.inactiveButtonClass);
     closePopup(imageAddPopup);
-
 }
 
 //заполнеие карточек из массива при загрузке страницы

@@ -6,18 +6,18 @@ const removePopupModifier = (openedPopup) => {
     openedPopup.classList.remove(openedPopupModifier);
 }
 
-// Обработка нажатия Escape
-function handleESCclose(evt) {
-    if (evt.key === "Escape") {
-        const openedPopup = document.querySelector('.popup_opened'); //находим открытый попап
-        removePopupModifier(openedPopup);
-    }
-}
-
 // Закрываем попап, удаляем обработчик Escape
 const closePopup = popupElement => {
     removePopupModifier(popupElement);
     document.removeEventListener('keydown' , handleESCclose);
+}
+
+// Обработка нажатия Escape
+function handleESCclose(evt) {
+    if (evt.key === "Escape") {
+        const openedPopup = document.querySelector('.popup_opened'); //находим открытый попап
+        closePopup(openedPopup);
+    }
 }
 
 // Устанавливаем обработчики событий на все попапы 
