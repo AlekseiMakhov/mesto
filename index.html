@@ -3,106 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сортировка</title>
+    <title>Место</title>
     <link rel="stylesheet" href="./page/index.css">
 </head>
-
 <body class="page">
+    <header class="header">
+        <img class="header__logo" src="./images/logo.svg" alt="Логотип Место">
+    </header>
 
-        <header class="header">
-            <h1 class="header__title">Сравнение алгоритмов сортировки</h1>
-            <div class="menu">
-                <a href="#" class="menu__link" id="about">О проекте</a>
-                <a href="./indexEng.html" class="menu__link">En</a>
-                <a href="./index.html" class="menu__link menu__link_lang-selected">Ru</a>
+    <main class="content">
+        <section class="profile">
+            <img class="profile__avatar" src="./images/image.jpg" alt="Аватар">
+            <div class="profile-info">
+                <div>
+                    <h1 class="profile-info__name">Жак-Ив Кусто</h1>
+                    <p class="profile-info__description">Исследователь океана</p>
+                </div>
+                <button type="button" class="profile-info__edit-button"></button>
             </div>
-        </header>
-
-        <main class="content">
-            <div class="line line_nomargin"></div>
-            <section class="sort-select">
-                <button class="sort-select__button sort-select__button_active" type="button" id="manual" disabled>Ручной ввода массива</button>
-                <button class="sort-select__button" type="button" id="auto">Сгенерировать случайный массив</button>
-            </section>
-            <div class="line line_nomargin"></div>
-
-            <section id="man-sort" class="array-input">
-                <p class="array-input__text">Пожалуйста, введите число от 0 до 9999</p>
-                <div class="array-input__field">
-                    <input id="array-element" type="number" class="array-input__input" max="9999" min="0" maxlength="4">
-                    <button class="array-input__button array-input__button_disabled" id="ok">Добавить элемент</button>
-                </div>
-            </section>
-
-            <section id="auto-sort" class="array-input array-input_invisible">
-                <p id="items-count-input" class="array-input__text">Пожалуйста, введите число элементов массива от 1 до 99999</p>
-                <div class="array-input__field">
-                    <input id="array-count" type="number" class="array-input__input" max="99999" min="1" id="input-auto" maxlength="5">
-                    <button class="array-input__button array-input__button_disabled" id="generate" disabled>Сгенерировать</button>    
-                </div>
-            </section>
-            <div class="line"></div>
-            <section class="array array_invisible" id="array-inputed">
-                <h3 class="array__title">Исходный массив</h3>
-                <p class="array__text">Количество элементов массива - <span id="items-count" class="array__text"></span></span></p>
-                <textarea class="array__output" id="original-array" rows="4" readonly></textarea>
-                <button type="button" class="array__button" id="sort">Сортировать</button>
-                
-            </section>
-            <div class="line line_invisible" id="line2"></div>
-            <section class="array array_invisible" id="array-sorted">
-                <h3 class="array__title">Сортированный массив</h3>
-                <textarea class="array__output" id="sorted-array" rows="4" readonly></textarea>
-                <button type="button" class="array__button" id="reset">Сбросить</button>
-            </section>    
-            <div class="line line_invisible" id="line3"></div>
-            <section class="array array_invisible" id="result">                
-                <h4 class="array__title" id="usort">Количество итераций</h4>
-                <div class="result">
-                    <div class="result__sorting">    
-                        <p class="result__text">Простая сортировка</p>
-                        <p class="result__number" id="usortCycles"></p>
-                    </div>  
-                    <div class="result__sorting">    
-                        <p class="result__text">Быстрая сортировка</p>
-                        <p class="result__number" id="qsortCycles"></p>
-                    </div>     
-                </div>
-                <h4 class="array__title">Время выполнения алгоритма</h4>
-                <div class="result">
-                    <div class="result__sorting">    
-                        <p class="result__text">Простая сортировка</p>
-                        <p class="result__number" id="usortTime"></p>
-                    </div>
-                    <div class="result__sorting">    
-                        <p class="result__text">Быстрая сортировка</p>
-                        <p class="result__number" id="qsortTime"></p>
-                    </div>
-                </div>
-            </section>
-
-        </main>
-        
-        <footer class="footer">
-            <p class="footer__logo">© 2020 Aleksei Makhov &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; дизайн Arina Makhova</p>
-        </footer>
-
-        <section class="popup">
-            <div class="about">
-                <button type="button" name="Закрыть" class="about__close-button"></button>
-                <h3 class="about__title">Зачем?</h3>
-                <p class="about__text">Проект разработан, чтобы наглядно показать преимущество алгоритма быстрой сортировки в сравнении простой сортировкой. Результатом являются 2 параметра - количество итераций (циклов) алгоритма и время выполнения алгоритма, которое получаем из разности меток времени оконцания и начала выполнения алгоритма.</p>
-                <h3 class="about__title">Что?</h3>
-                <p class="about__text">В проекте реализовано 2 способа ввода исходного массива - ручной и автоматический (для ленивых, ибо вводить вручную несколько тысяч чисел не у каждого терпения и настойчивости хватит).</p>
-                <h3 class="about__title">Что делать?</h3>
-                <p class="about__text">- В режиме ручного ввода предлагается вводить числа от 0 до 9999 в поле ввода, по нажатию клавиши 'Enter' число добавляется в исходный массив.</p>
-                <p class="about__text">- В режиме автоматической генерации массива в поле ввода предлагается ввести количество элементов исходного массива, после нажатия на кнопку 'Сгенерировать' получаем исходный массив, состоящий из введеннго количества элементов из случайных чисел от 0 до 9999.</p>
-                <p class="about__text">- После нажатия на кнопку 'Сортировать' начинается выполнение алгоритмов. Хочу предупредить, что при большом количестве элементов массива (более 40000) придется немного подождать (компьютер не завис, он работает).</p>
-                <p class="about__text">- Кнопка 'Сбросить' возвращает к исходной форме.</p>
-            </div>
+            <button type="button" class="add-image-button"></button>
         </section>
-        <script src="./scripts//openCloseAbout.js"></script>
-        <script src="./scripts/sort.js"></script>
-  
+
+        <section class="elements">
+        
+        </section>
+
+    </main>
+    
+    <footer class="footer">
+        <p class="footer__logo">© 2020 Mesto Russia</p>
+    </footer>
+
+    <section id="profile-info__edit" class="popup">
+        <form class="popup-form" name="profile-edit-form">
+            <button type="button" name="Закрыть" class="popup-form__close-button"></button>
+            <h3 class="popup-form__title">Редактировать профиль</h3>
+            <input name="name-input" id="name-input" type="text" minlength="2" maxlength="40" class="popup-form__text-input" placeholder="Имя" required>
+            <span id="name-input-error" class="popup-form__error-text"></span>
+            <input name="about-input" id="about-input" type="text" minlength="2" maxlength="200" class="popup-form__text-input" placeholder="О себе" required>
+            <span id="about-input-error" class="popup-form__error-text"></span>
+            <button type="submit" name="Сохранить" class="popup-form__submit-button popup-form__submit-button_disabled" disabled>Сохранить</button>
+        </form>
+    </section>
+
+    <section id="add-image" class="popup">
+        <form class="popup-form" name="add-image-form">
+            <button type="button" name="Закрыть" class="popup-form__close-button"></button>
+            <h3 class="popup-form__title">Новое место</h3>
+            <input name="image-input" id="image-input" type="text" minlength="1" maxlength="340" class="popup-form__text-input" placeholder="Название" required>
+            <span id="image-input-error" class="popup-form__error-text"></span>
+            <input name="link-input" id="link-input" type="url" class="popup-form__text-input" placeholder="Ссылка на картинку" required>
+            <span id="link-input-error" class="popup-form__error-text"></span>
+            <button type="submit" name="Сохранить" class="popup-form__submit-button popup-form__submit-button_disabled" disabled>Сохранить</button>
+        </form>
+    </section>
+
+    <section id="view-image" class="popup">
+        <div class="popup-image">
+            <button type="button" name="Закрыть" class="popup-image__close-button"></button>
+            <img class="popup-image__image" src="#" alt="#">
+            <h3 class="popup-image__title"></h3>
+        </div>
+    </section>
+
+    <!-- template-тег для вставки карточки с изображением --> 
+    <template id="place-card">
+        <div class="element">
+            <img class="element__image" src="" alt="Фото">
+            <button type="button" class="element__trash-button"></button>
+            <h3 class="element__text">Место</h3>
+            <button type="button" class="element__like"></button>
+        </div>
+    </template>
+
+    <script src="./scripts/initialData.js"></script>
+    <script src="./scripts/openClosePopups.js"></script>
+    <script src="./scripts/validate.js"></script>
+    <script src="./scripts/profile.js"></script>
+    <script src="./scripts/cards.js"></script>
+    
 </body>
 </html>

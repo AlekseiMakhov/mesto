@@ -1,9 +1,10 @@
 .page {
-    min-width: 1200px;
-    background-color: #C1C2C7;
+    min-width: 320px;
+    max-width: 1280px;
+    background-color: black;
     position: relative;
-    font-family: 'Graphik', 'Helvetica', 'Arial';
-    color: #002AEE;
+    font-family: 'Inter', 'Helvetica', 'Arial';
+    color: white;
     margin: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

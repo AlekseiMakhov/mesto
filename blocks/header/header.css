@@ -1,9 +1,17 @@
-@import url(./__title/header__title.css);
+@import url(./__logo/header__logo.css);
 
 .header {
     margin: auto;
-    padding: 80px 70px 60px;
+    padding: 45px 0 0;
+    max-width: 882px;
     display: flex;
-    justify-content: space-between;
-    max-width: 1440px;
+    flex-direction: column;
+    border-bottom: 1px solid rgb(59,59,59);    
+}
+
+
+@media screen and (max-width: 620px) {
+    .header {
+        padding-top: 28px;
+    }
 }

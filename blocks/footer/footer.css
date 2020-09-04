@@ -1,7 +1,13 @@
 @import url(./__logo/footer__logo.css);
 
 .footer {
-    padding: 66px 70px 60px 70px;
+    padding: 66px 19px 60px;
     margin: auto;
-    max-width: 1440px;
+    max-width: 882px;
+}
+
+@media screen and (max-width: 620px) {
+    .footer {
+        padding: 48px 19px 36px;
+    }
 }

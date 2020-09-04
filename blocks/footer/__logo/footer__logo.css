@@ -1,6 +1,7 @@
 .footer__logo {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: normal;
-    line-height: 150%;
+    line-height: 17px;
     margin: 0;
+    color: #545454;
 }

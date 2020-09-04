@@ -1,9 +1,0 @@
-@import url(./__button/sort-select__button.css);
-@import url(./__button/_active/sort-select__button_active.css);
-
-.sort-select {
-    max-width: 1440px;
-    padding: 0 70px 0 70px;
-    display: flex;
-    margin: auto;
-}
