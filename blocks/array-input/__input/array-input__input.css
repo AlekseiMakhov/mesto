@@ -1,0 +1,12 @@
+.array-input__input {
+    width: calc(49% - 20px);
+    outline: none;
+    font-size: 18px;
+    background-color: white;
+    line-height: 150%;
+    height: 70px;
+    border: none;
+    margin: 0;
+    padding: 0 0 0 20px;
+    color: #002AEE;
+}

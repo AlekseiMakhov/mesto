@@ -1,0 +1,21 @@
+.menu__link {
+    margin: 0 0 auto 0;
+    font-size: 18px;
+    line-height: 150%;  
+    font-weight: normal;
+    text-decoration: none;
+    color: #002AEE;
+    cursor: pointer;
+}
+
+.menu__link:first-of-type {
+    margin-right: 50px;
+}
+
+.menu__link:last-of-type {
+    margin-left: 10px;
+}
+
+.menu__link:hover {
+    color: #EAFF68;
+}

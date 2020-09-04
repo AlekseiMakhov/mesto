@@ -1,0 +1,17 @@
+.array-input__button {
+    background-color: #002AEE;
+    border: none;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    width: 49%;
+    height: 70px;
+    font-size: 18px;
+    line-height: 150%;
+    margin: 0;
+    padding: 0;
+}
+
+.array-input__button:hover {
+    background-color: #0023C3;
+}

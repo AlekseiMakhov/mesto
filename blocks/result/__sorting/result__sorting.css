@@ -1,0 +1,11 @@
+.result__sorting {
+    width: 50%;
+    padding: 0;
+    margin: 0;
+    background-color: #C1C2C7;
+    border: 1px solid #002AEE;
+}
+
+.result__sorting:first-of-type {
+    border-right: none;
+}

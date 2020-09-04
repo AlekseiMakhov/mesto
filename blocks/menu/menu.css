@@ -1,0 +1,7 @@
+@import url(./__link/menu__link.css);
+@import url(./__link/_lang-selected/menu__link_lang-selected.css);
+
+.menu {
+    display: flex;
+    justify-content: flex-end;
+}

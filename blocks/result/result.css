@@ -1,0 +1,8 @@
+@import url(./__text/result__text.css);
+@import url(./__number/result__number.css);
+@import url(./__sorting/result__sorting.css);
+
+.result {
+    display: flex;
+    padding: 0;
+}

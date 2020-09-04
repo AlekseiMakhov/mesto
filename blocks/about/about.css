@@ -1,0 +1,15 @@
+@import url(./__title/about__title.css);
+@import url(./__close-button/about__close-button.css);
+@import url(./__text/about__text.css);
+
+.about {
+    max-width: 1100px;
+    border-radius: 2px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+    color: #002AEE;
+    background-color: #E5E5E5;
+    position: relative;
+    padding: 40px 0;
+
+}

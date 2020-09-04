@@ -1,0 +1,21 @@
+.sort-select__button {
+    width: 50%;
+    margin: 0;
+    padding: 0 0 0 30px;
+    text-align: left;
+    color: #002AEE;
+    height: 130px;
+    background-color: #C1C2C7;
+    border: none;
+    outline: 0;
+    font-size: 32px;
+    line-height: 130%;
+    cursor: pointer;
+}
+
+.sort-select__button:hover {
+    color: #EAFF68;
+}
+.sort-select__button:first-of-type {
+    border-right: 1px solid #002AEE;
+}

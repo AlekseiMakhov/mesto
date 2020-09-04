@@ -1,0 +1,12 @@
+.array__button_disabled {
+    cursor: auto;
+    background-color: #C1C2C7;
+    color: #002AEE;
+    border: 1px solid #002AEE;
+}
+.array__button_disabled:hover {
+    cursor: auto;
+    background-color: #C1C2C7;
+    color: #002AEE;
+    border: 1px solid #002AEE;
+}
