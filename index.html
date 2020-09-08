@@ -54,11 +54,11 @@
             <span id="image-input-error" class="popup-form__error-text"></span>
             <input name="link-input" id="link-input" type="url" class="popup-form__text-input" placeholder="Ссылка на картинку" required>
             <span id="link-input-error" class="popup-form__error-text"></span>
-            <button type="submit" name="Сохранить" class="popup-form__submit-button popup-form__submit-button_disabled" disabled>Сохранить</button>
+            <button type="submit" name="Сохранить" class="popup-form__submit-button">Создать</button>
         </form>
     </section>
 
-    <section id="view-image" class="popup">
+    <section id="view-image" class="popup popup_type_dark">
         <div class="popup-image">
             <button type="button" name="Закрыть" class="popup-image__close-button"></button>
             <img class="popup-image__image" src="#" alt="#">
@@ -76,11 +76,11 @@
         </div>
     </template>
 
-    <script src="./scripts/initialData.js"></script>
-    <script src="./scripts/openClosePopups.js"></script>
-    <script src="./scripts/validate.js"></script>
-    <script src="./scripts/profile.js"></script>
-    <script src="./scripts/cards.js"></script>
+    
+    <script type="module" src="./scripts/data.js"></script>
+    <script type="module" src="./scripts/card.js"></script>
+    <script type="module" src="./scripts/formValidator.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
     
 </body>
 </html>

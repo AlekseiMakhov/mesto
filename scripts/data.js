@@ -1,4 +1,4 @@
-const initialCards = [
+export const initialCards = [
     {
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -24,3 +24,11 @@ const initialCards = [
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ]; // массив карточек для добавления при загрузке страницы
+
+export const validationElements = {
+    inputSelector: '.popup-form__text-input',
+    submitButtonSelector: '.popup-form__submit-button',
+    inactiveButtonClass: 'popup-form__submit-button_disabled',
+    inputErrorClass: 'popup-form__text-input_type_error',
+    errorClass: 'popup-form__error-text_show'
+}
