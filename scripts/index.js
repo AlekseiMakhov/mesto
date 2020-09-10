@@ -1,6 +1,6 @@
 import { initialCards, validationElements } from './data.js';                           //импорт из data.js
-import { Card } from './card.js';                                                       //импорт из card.js
-import { FormValidator } from './formValidator.js';                                     //импорт из formValidator.js
+import { Card } from './Card.js';                                                       //импорт из card.js
+import { FormValidator } from './FormValidator.js';                                     //импорт из formValidator.js
 
 const imageAddPopup = document.querySelector('#add-image');                             //всплывающее окно формы добавления карточки
 const addForm = imageAddPopup.querySelector('.popup-form');                             //форма добаления карточки
@@ -38,7 +38,7 @@ const closePopup = popupElement => {
 // Обработка нажатия Escape
 function handleESCclose(evt) {
     if (evt.key === "Escape") {
-        closePopup(document.querySelector('.popup_opened'));                    //находим и закрываем открытый попап
+        closePopup(document.querySelector('.popup_opened'));                            //находим и закрываем открытый попап
     }
 }
 
@@ -61,8 +61,8 @@ popupArray.forEach((popupElement) => {
 
 // Открываем нужный попап, который передаем аргументом popupElement
 const openPopup = (popupElement) => {
-    popupElement.classList.add(openedPopupModifier);                            //Добавляем ему модификатор
-    document.addEventListener('keydown' , handleESCclose);                      //добавляем открытому оену обработчик Escape
+    popupElement.classList.add(openedPopupModifier);                                    //Добавляем ему модификатор
+    document.addEventListener('keydown' , handleESCclose);                              //добавляем открытому оену обработчик Escape
 }
 
 //функция открытия окна с увеличенным фото карточки
@@ -71,35 +71,35 @@ const openImageView = (item) => {
     openPopup(imageViewPopup);
     imageViewElement.src = item.src;
     imageViewTitle.textContent = elementTitle.textContent;
-    imageViewElement.alt = elementTitle.textContent + '. Фото';
+    imageViewElement.alt = `${elementTitle.textContent}. Фото`;
 }
     
 
 //фунция заполнения формы карточки
 const addPlaceElement = evt => {
     const item = {name: imageNameInput.value, link: imageLinkInput.value};
-    const newCard = new Card(item, cardTempElement).addCard();                  //создаем новый элемент-карточку
-    const image = newCard.querySelector('.element__image');                     //находим фото в карточке
-    evt.preventDefault();                                                       //отменяем стандартное действие
+    const newCard = new Card(item, cardTempElement).getView();                          //создаем новый элемент-карточку
+    const image = newCard.querySelector('.element__image');                             //находим фото в карточке
+    evt.preventDefault();                                                               //отменяем стандартное действие
     newCard.querySelector('.element__image').addEventListener('click', evt => {
         openImageView(image);
-    });                                                                         //Вешаем слушатель на картинку с функцией открытия попапа
-    cardElements.prepend(newCard);                                              //Добавляем элемент в DOM
+    });                                                                                 //Вешаем слушатель на картинку с функцией открытия попапа
+    cardElements.prepend(newCard);                                                      //Добавляем элемент в DOM
     imageNameInput.value = '';
     imageLinkInput.value = '';
     submitAddImageButton.setAttribute('disabled', '');
-    submitAddImageButton.classList.add(validationElements.inactiveButtonClass); //очищаем поля формы и отключаем кнопку
-    closePopup(imageAddPopup);                                                  //закрываем попап
+    submitAddImageButton.classList.add(validationElements.inactiveButtonClass);         //очищаем поля формы и отключаем кнопку
+    closePopup(imageAddPopup);                                                          //закрываем попап
 }
 
 //заполнеие карточек из массива при загрузке страницы
 initialCards.forEach (data => {
-    const newCard = new Card(data, cardTempElement).addCard();                  //создаем новый элемент-карточку
-    const image = newCard.querySelector('.element__image');                     //находим фото в карточке
+    const newCard = new Card(data, cardTempElement).getView();                          //создаем новый элемент-карточку
+    const image = newCard.querySelector('.element__image');                             //находим фото в карточке
     newCard.querySelector('.element__image').addEventListener('click', evt => {
         openImageView(image);
-    });                                                                         //Вешаем слушатель на картинку с функцией открытия попапа
-    cardElements.append(newCard);                                               //Добавляем элемент в DOM
+    });                                                                                 //Вешаем слушатель на картинку с функцией открытия попапа
+    cardElements.append(newCard);                                                       //Добавляем элемент в DOM
 });
 
 //функция открытия и инициализации формы редактирования профиля
@@ -119,13 +119,13 @@ const submitEditing = evt => {
 
  //включение валидации для каждой формы на странице
 formArray.forEach(formElement => {
-    const newValidator = new FormValidator(validationElements, formElement);    
-    newValidator.enableValidation(formElement, validationElements);             //включаем валидацию формы
+    const newValidator = new FormValidator(validationElements, formElement);   
+    newValidator.enableValidation();                                                    //включаем валидацию формы
 });
 
 addPlaceButton.addEventListener('click', () => {
     openPopup(imageAddPopup);
-});                                                                             //Обработчик события для кнопки добавления карточки
-addForm.addEventListener('submit', addPlaceElement);                            //Обработчик события для отправки формы добавления карточки
-editButton.addEventListener('click', editProfile);                              //обработчик события кнопки редактирования профиля
-editForm.addEventListener('submit', submitEditing);                             //обработчик события для отправки формы редактирования профиля
+});                                                                                     //Обработчик события для кнопки добавления карточки
+addForm.addEventListener('submit', addPlaceElement);                                    //Обработчик события для отправки формы добавления карточки
+editButton.addEventListener('click', editProfile);                                      //обработчик события кнопки редактирования профиля
+editForm.addEventListener('submit', submitEditing);                                     //обработчик события для отправки формы редактирования профиля

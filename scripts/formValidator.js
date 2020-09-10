@@ -1,16 +1,24 @@
 export class FormValidator {
-    constuctor(validationElements, formElement) {} 
+    constructor(validationElements, formElement) {
+        //this._validationElements = validationElements;
+        this._inputSelector = validationElements.inputSelector;
+        this._submitButtonSelector = validationElements.submitButtonSelector;
+        this._inactiveButtonClass = validationElements.inactiveButtonClass;
+        this._inputErrorClass = validationElements.inputErrorClass;
+        this._errorClass = validationElements.errorClass;
+        this._formElement = formElement;
+    } 
 
     // Функция, которая добавляет класс с ошибкой
-    _showInputError = (inputElement, errorElement, validationMessage, {inputErrorClass, errorClass}) => {
-        inputElement.classList.add(inputErrorClass);
-        errorElement.classList.add(errorClass);
+    _showInputError = (inputElement, errorElement, validationMessage) => {
+        inputElement.classList.add(this._inputErrorClass);
+        errorElement.classList.add(this._errorClass);
         errorElement.textContent = validationMessage;
     };
     // Функция, которая удаляет класс с ошибкой
-    _hideInputError = (inputElement, errorElement, {inputErrorClass, errorClass}) => {
-        inputElement.classList.remove(inputErrorClass);
-        errorElement.classList.remove(errorClass);
+    _hideInputError = (inputElement, errorElement) => {
+        inputElement.classList.remove(this._inputErrorClass);
+        errorElement.classList.remove(this._errorClass);
         errorElement.textContent = '';
     };
     // Функция определения валидности ввода
@@ -20,44 +28,42 @@ export class FormValidator {
         })
     };
     // Функция изменения активности кнопки отправки формы
-    _toggleButtonState = (inputList, submitButton, {inactiveButtonClass}) => {
+    _toggleButtonState = (inputList, submitButton) => {
         if (this._hasInvalidInput(inputList)) {
-            submitButton.classList.add(inactiveButtonClass);
+            submitButton.classList.add(this._inactiveButtonClass);
             submitButton.setAttribute('disabled', '');
         } else {
-            submitButton.classList.remove(inactiveButtonClass);
+            submitButton.classList.remove(this._inactiveButtonClass);
             submitButton.removeAttribute('disabled');
         }
     };
     // Вызов функций показа/скрытия сообщения об ошибке ввода в зависимости от валидности ввода
-    _isValid = (inputElement, {...rest}) => {
+    _isValid = (inputElement) => {
         const errorElement = inputElement.parentElement.querySelector(`#${inputElement.id}-error`);
         if (!inputElement.validity.valid) {
-            this._showInputError(inputElement, errorElement, inputElement.validationMessage, rest);
+            this._showInputError(inputElement, errorElement, inputElement.validationMessage);
             } else {
-            this._hideInputError(inputElement, errorElement, rest);
+            this._hideInputError(inputElement, errorElement);
         }
     };
     // Установка обработчиков элементам ввода
-    _setEventListeners = (formElement, {inputSelector, submitButtonSelector, ...rest}) => {
-        const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-        const submitButton = formElement.querySelector(submitButtonSelector);
-        this._toggleButtonState(inputList, submitButton, rest);
+    _setEventListeners = () => {
+        const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+        const submitButton = this._formElement.querySelector(this._submitButtonSelector);
+        this._toggleButtonState(inputList, submitButton);
         inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
-            this._toggleButtonState(inputList, submitButton, rest);
-            this._isValid(inputElement, rest);
-            
+                this._toggleButtonState(inputList, submitButton);
+                this._isValid(inputElement); 
             });
         });
     };
     
     // Функция отменяет стандартное поведение, вызывает функцию установки обработчиков событий
-    enableValidation = (formElement, validationElements) => {
-        formElement.addEventListener('submit', evt => {
-            evt.preventDefault();
+    enableValidation = () => {
+        this._formElement.addEventListener('submit', evt => {
+            evt.preventDefault(); 
         });
-        this._setEventListeners(formElement, validationElements);
-        
+        this._setEventListeners();
     }
 }
