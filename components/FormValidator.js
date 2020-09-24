@@ -1,13 +1,13 @@
 export class FormValidator {
     constructor(validationElements, formElement) {
-        //this._validationElements = validationElements;
+
         this._inputSelector = validationElements.inputSelector;
         this._submitButtonSelector = validationElements.submitButtonSelector;
         this._inactiveButtonClass = validationElements.inactiveButtonClass;
         this._inputErrorClass = validationElements.inputErrorClass;
         this._errorClass = validationElements.errorClass;
         this._formElement = formElement;
-    } 
+    }
 
     // Функция, которая добавляет класс с ошибкой
     _showInputError = (inputElement, errorElement, validationMessage) => {

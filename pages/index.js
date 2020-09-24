@@ -1,6 +1,11 @@
-import { initialCards, validationElements } from './data.js';                           //импорт из data.js
-import { Card } from './Card.js';                                                       //импорт из card.js
-import { FormValidator } from './FormValidator.js';                                     //импорт из formValidator.js
+import { initialCards, validationElements } from '../utils/constants.js';                           //импорт из constants.js
+import { Card } from '../components/Card.js';                                                       //импорт из card.js
+import { FormValidator } from '../components/FormValidator.js';                                     //импорт из formValidator.js
+import { Section } from '../components/Section.js';                                                 //импорт из Section.js
+import { Popup } from '../components/Popup.js';                                                     //импорт из Popup.js
+import { PopupWithForm } from '../components/PopupWithForm.js';                                     //импорт из PopupWithForm.js
+import { PopupWithImage } from '../components/PopupWithImage.js';                                   //импорт из PopupWithImage.js
+import { UserInfo } from '../components/UserInfo.js';                                               //импорт из UserInfo.js
 
 const imageAddPopup = document.querySelector('#add-image');                             //всплывающее окно формы добавления карточки
 const addForm = imageAddPopup.querySelector('.popup-form');                             //форма добаления карточки
@@ -20,10 +25,20 @@ const editForm = profilePopup.querySelector('.popup-form');                     
 const nameField = profilePopup.querySelector('#name-input');                            //поле ввода имени
 const aboutField = profilePopup.querySelector('#about-input');                          //поле ввода описания
 const editButton = document.querySelector('.profile-info__edit-button');                //кнопка редактирования профиля
-const openedPopupModifier = 'popup_opened';                                             //модификатор для открытого состояния попапа
-const popupArray = Array.from(document.querySelectorAll('.popup'));                     //массив из всех попапов на странице
-const formArray = Array.from(document.querySelectorAll('.popup-form'));                 //массив из всех форм на странице
+//const openedPopupModifier = 'popup_opened';                                             //модификатор для открытого состояния попапа
+//const popupArray = Array.from(document.querySelectorAll('.popup'));                     //массив из всех попапов на странице
+//const formArray = Array.from(document.querySelectorAll('.popup-form'));                 //массив из всех форм на странице
 
+const newCardSection = new Section (
+    {
+        data: initialCards, 
+        renderer: function () {
+            const newCard = new Card ()
+        }
+    }
+);
+
+/*
 // Удаление модификатора
 const removePopupModifier = (openedPopup) => {
     openedPopup.classList.remove(openedPopupModifier);
@@ -64,6 +79,7 @@ const openPopup = (popupElement) => {
     popupElement.classList.add(openedPopupModifier);                                    //Добавляем ему модификатор
     document.addEventListener('keydown' , handleESCclose);                              //добавляем открытому оену обработчик Escape
 }
+*/
 
 //функция открытия окна с увеличенным фото карточки
 const openImageView = (item) => {

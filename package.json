@@ -1,0 +1,18 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "mesto project",
+  "main": "index.js",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+
+  },
+  "scripts": {
+    "build": "rd /s /q dist && webpack",
+    "dev": "webpack-dev-server --open --watch"
+  },
+  "author": "Aleksey Makhov",
+  "license": "ISC"
+}
