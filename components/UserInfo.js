@@ -4,12 +4,12 @@ export default class UserInfo {
         this._aboutFieldSelector = aboutFieldSelector;
     }
 
-    getUserInfo ( {name, about} ) {
+    getUserInfo ( name, about ) {
         name = this._nameFielsSelector.textContent;
         about = this._aboutFieldSelector.textContent;
     }
 
-    setUserInfo ( {name, about}, nameText, aboutText ) {
+    setUserInfo ( name, about, nameText, aboutText ) {
         nameText.textContent = name;
         aboutText.textContent = about;
     }

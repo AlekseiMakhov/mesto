@@ -1,5 +1,5 @@
 export default class PopupWithForm extends Popup {
-    constructor (popupSelector, submitForm) {
+    constructor (popupSelector, {submitForm}) {
         this._popupSelector = popupSelector;
         this._submitForm = submitForm;
     }
@@ -31,6 +31,6 @@ export default class PopupWithForm extends Popup {
         });
 
         const submitButton = this._popupSelector.querySelector('.submit__button');
-        submitButton.addEventListener('click', this._submitForm);
+        submitButton.addEventListener('submit', this._submitForm);
     }
 }

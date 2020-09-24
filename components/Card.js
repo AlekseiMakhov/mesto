@@ -1,7 +1,7 @@
 
 
 export class Card {                                                                 //класс для описания свойств и методов элемента-карточки
-    constructor(data, templateSelector, handleCardClick) {
+    constructor(data, templateSelector, { handleCardClick } ) {
         this._name = data.name;
         this._link = data.link;
         this._templateSelector = templateSelector;
