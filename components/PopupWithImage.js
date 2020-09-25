@@ -13,10 +13,10 @@ export class PopupWithImage extends Popup {
         super.open();
     } 
     //переопределяем метод закрытия, чтобы обнулить все элементы
-    close() {
-        this.popupSelector.querySelector(image).src = '';
-        this.popupSelector.querySelector(title).textContent = '';
-        this.popupSelector.querySelector(image).alt = '';
-        super.close();
-    }
+    // close() {
+    //     this.popupSelector.querySelector(image).src = '';
+    //     this.popupSelector.querySelector(title).textContent = '';
+    //     this.popupSelector.querySelector(image).alt = '';
+    //     super.close();
+    // }
 }
