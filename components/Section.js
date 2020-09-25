@@ -1,8 +1,8 @@
-export default class Section {
+export class Section {
     constructor ( 
         {
             items, 
-            renderer 
+            renderer
         },
         containerSelector
     ) {
@@ -10,14 +10,14 @@ export default class Section {
         this._renderer = renderer;
         this._containerSelector = containerSelector;
     }
-
+    //Добавление элемента в контейнер
     addItem(element) {
         this._containerSelector.prepend(element);
     }
-
+    //Отрисовка всех элементов
     renderItems() {
         this._items.forEach(item => {
-            this.addItem(this._renderer(item));
+            this._renderer(item);
         });
     }    
 }

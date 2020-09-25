@@ -1,4 +1,3 @@
-import { initialCards, validationElements } from '../utils/constants.js';                           //импорт из constants.js
 import { Card } from '../components/Card.js';                                                       //импорт из card.js
 import { FormValidator } from '../components/FormValidator.js';                                     //импорт из formValidator.js
 import { Section } from '../components/Section.js';                                                 //импорт из Section.js
@@ -7,172 +6,79 @@ import { PopupWithImage } from '../components/PopupWithImage.js';               
 import { UserInfo } from '../components/UserInfo.js';                                               //импорт из UserInfo.js
 
 import {
+    initialCards, 
+    validationElements,
     imageAddPopup,
-    submitButton,
+    imageNameInput,
     imageLinkInput,
     addPlaceButton,
     cardTempElement,
     imageViewPopup,
     profilePopup,
-    nameInfo,
-    aboutInfo,
     nameInput,
     aboutInput,
     editButton,
-    formSelector,
-    formArray
-} from '../utils/constants.js';
+    formArray,
+    containerSelector
+} from '../utils/constants.js';                                                                     //импорт переменных из constants.js
 
+const userData = new UserInfo({nameFieldSelector: nameInput, aboutFieldSelector: aboutInput});
+const imageView = new PopupWithImage(imageViewPopup);
+imageView.setEventListeners();
 const section = new Section(
-    {   items: initialCards, 
-        renderer: (newCard) => {
-            newCard = new Card ({item: name, item: link}, cardTempElement, handleCardClick);
+    {items: initialCards, 
+    renderer: (item) => {
+        const newCard = new Card(
+            {name: item.name,
+            link: item.link,
+            handleCardClick: () => imageView.open({image_title: item.name, image_link: item.link})},
+            cardTempElement);
+        const card = newCard.getView();
+        section.addItem(card);
         }
     },
     containerSelector
- );
-
-const imageView = new PopupWithImage(imageViewPopup);
-
-function handleCardClick () {
-    imageView.open();
-}
+);
 
 const imageAddForm = new PopupWithForm(imageAddPopup, 
     {submitForm: evt => {
+        evt.preventDefault();  
         const newCard = new Card(
-            {name: imageNameInput.value, link: imageLinkInput.value}, cardTempElement, handleCardClick).getView();   //создаем новый элемент-карточку
-        section.addItem(newCard);
-        evt.preventDefault();                                                                                                               //отменяем стандартное действие
-        imageAddForm.querySelector(formSelector).reset();
-        imageAddForm.querySelector(submitButton).setAttribute('disabled', '');
+            {name: imageNameInput.value, 
+            link: imageLinkInput.value,
+            handleCardClick: (evt) => imageView.open(
+                {image_title: evt.target.parentElement.querySelector('.element__text').textContent, 
+                image_link: evt.target.src})
+            },
+            cardTempElement);
+        const card = newCard.getView();;   //создаем новый элемент-карточку
+        section.addItem(card);
         imageAddForm.close();
     }
-})
+});
 
 const userDataForm = new PopupWithForm(profilePopup, 
-    {submitForm: evt => {
-        const userData = new UserInfo({nameFielsSelector: nameInput, aboutInput});   //
+    {submitForm: evt => {   //
         evt.preventDefault();                                                                                                               //отменяем стандартное действие
-        userData.setInfo(
-            nameInput,
-            aboutInput,
-            nameInfo,
-            aboutInfo
-        )
-        userDataForm.querySelector(formSelector).reset();
+        userData.setUserInfo();
         userDataForm.close();
     }
-})
+});
 
+const openUserInfo = () => {
+    userDataForm.open();
+    userData.getUserInfo();
+}
 
+section.renderItems();
+imageAddForm.setEventListeners();
+userDataForm.setEventListeners();
+imageView.setEventListeners();
 
- formArray.forEach(formElement => {
+formArray.forEach(formElement => {
     const newValidator = new FormValidator(validationElements, formElement);   
     newValidator.enableValidation();                                                    //включаем валидацию формы
 });
 
-section.renderItems();
-
-addPlaceButton.addEventListener('click', imageAddForm.open);
-                                                                                    //Обработчик события для кнопки добавления карточки
-editButton.addEventListener('click', userDataForm.open);        
-
-
-
-// // Удаление модификатора
-// const removePopupModifier = (openedPopup) => {
-//     openedPopup.classList.remove(openedPopupModifier);
-// }
-
-// // Закрываем попап, удаляем обработчик Escape
-// const closePopup = popupElement => {
-//     removePopupModifier(popupElement);
-//     document.removeEventListener('keydown' , handleESCclose);
-// }
-
-// // Обработка нажатия Escape
-// function handleESCclose(evt) {
-//     if (evt.key === "Escape") {
-//         closePopup(document.querySelector('.popup_opened'));                            //находим и закрываем открытый попап
-//     }
-// }
-
-// // Устанавливаем обработчики событий на все попапы 
-// popupArray.forEach((popupElement) => {
-//     const closeButton = popupElement.querySelector(`.${popupElement.firstElementChild.getAttribute('class')}__close-button`);
-    
-//     // Установка обработчика на кнопку закрытия
-//     closeButton.addEventListener('click', evt => {
-//         closePopup(popupElement);
-//     });
-
-//     // Установка обработчика по клику на оверлее
-//     popupElement.addEventListener('click', evt => {
-//         if (evt.target === evt.currentTarget) {
-//             closePopup(popupElement);
-//         }
-//     });
-// });
-
-// // Открываем нужный попап, который передаем аргументом popupElement
-// const openPopup = (popupElement) => {
-//     popupElement.classList.add(openedPopupModifier);                                    //Добавляем ему модификатор
-//     document.addEventListener('keydown' , handleESCclose);                              //добавляем открытому оену обработчик Escape
-// }
-
-
-//функция открытия окна с увеличенным фото карточки
-// function openImageView(item) {
-//     const elementTitle = item.parentElement.querySelector('.element__text');
-//     openPopup(imageViewPopup);
-//     imageViewElement.src = item.src;
-//     imageViewTitle.textContent = elementTitle.textContent;
-//     imageViewElement.alt = `${elementTitle.textContent}. Фото`;
-// }
-    
-
-// //фунция заполнения формы карточки
-// const addPlaceElement = evt => {
-//     const item = {name: imageNameInput.value, link: imageLinkInput.value};
-//     const newCard = new Card(item, cardTempElement).getView();                          //создаем новый элемент-карточку
-//     const image = newCard.querySelector('.element__image');                             //находим фото в карточке
-//     evt.preventDefault();                                                               //отменяем стандартное действие
-//     newCard.querySelector('.element__image').addEventListener('click', evt => {
-//         openImageView(image);
-//     });                                                                                 //Вешаем слушатель на картинку с функцией открытия попапа
-//     cardElements.prepend(newCard);                                                      //Добавляем элемент в DOM
-//     imageNameInput.value = '';
-//     imageLinkInput.value = '';
-//     submitAddImageButton.setAttribute('disabled', '');
-//     submitAddImageButton.classList.add(validationElements.inactiveButtonClass);         //очищаем поля формы и отключаем кнопку
-//     closePopup(imageAddPopup);                                                          //закрываем попап
-// }
-
-// //заполнеие карточек из массива при загрузке страницы
-// initialCards.forEach (data => {
-//     const newCard = new Card(data, cardTempElement).getView();                          //создаем новый элемент-карточку
-//     const image = newCard.querySelector('.element__image');                             //находим фото в карточке
-//     newCard.querySelector('.element__image').addEventListener('click', evt => {
-//         openImageView(image);
-//     });                                                                                 //Вешаем слушатель на картинку с функцией открытия попапа
-//     cardElements.append(newCard);                                                       //Добавляем элемент в DOM
-// });
-
-// //функция открытия и инициализации формы редактирования профиля
-// const editProfile = () => {
-//     openPopup(profilePopup);
-//     nameField.value = name.textContent;
-//     aboutField.value = about.textContent;
-// }
-
-// //функция отправки формы редактирования профиля
-// const submitEditing = evt => {
-//     evt.preventDefault();
-//     name.textContent = nameField.value;
-//     about.textContent = aboutField.value;
-//     closePopup(profilePopup);
-//  }
-
- //включение валидации для каждой формы на странице
-                              //обработчик события кнопки редактирования профиля
+addPlaceButton.addEventListener('click', () => {imageAddForm.open()});                  //Обработчик события для кнопки добавления карточки
+editButton.addEventListener('click', openUserInfo);        

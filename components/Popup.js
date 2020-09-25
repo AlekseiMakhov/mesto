@@ -1,31 +1,41 @@
-export default class Popup {
+import { openedPopupMod } from '../utils/constants.js';
+
+export class Popup {
     constructor (popupSelector) {
-        this._popupSelector = popupSelector;
+        this.popupSelector = popupSelector;
+        
     }
 
-    open() {
-        this._popupSelector.classList.add('opened_popup');                                          //Добавляем ему модификатор
-        document.addEventListener('keydown', this._handleESCclose);                                 //добавляем открытому оену обработчик Escape
-    } 
-
+    //закрытие попапа
     close() {
-        this._popupSelector.classList.remove('opened_popup');
-        document.removeEventListener('keydown', this._handleESCclose);
+        this.popupSelector.classList.remove(openedPopupMod);
+        document.removeEventListener('keydown', this._handleEscClose.bind(this));
     }
 
-    _handleEscClose() {
+    //обработка кнопки Escape
+    _handleEscClose(evt) {
         if (evt.key === "Escape") {
-            close();
+            this.close();
         }
     }
 
-    setEventListeners() {
-        const closeButton = this._popupSelector.querySelector(`.${this._popupSelector.firstElementChild.getAttribute('class')}__close-button`);
-        closeButton.addEventListener('click', closeButton.close.bind(this.closeButton));
+    //открытие попапа
+    open() {
+        this.popupSelector.classList.add(openedPopupMod);                                                           //Добавляем ему модификатор
+        document.addEventListener('keydown', this._handleEscClose.bind(this));                                      //добавляем открытому оену обработчик Escape
+    } 
 
-        this._popupSelector.addEventListener('click', evt => {
+    //установщик слушателей
+    setEventListeners() {
+        //находим кнопку закрытия попапа, добавляем слушатель
+        const closeButton = this.popupSelector.querySelector(`.${this.popupSelector.firstElementChild.getAttribute('class')}__close-button`);
+        closeButton.addEventListener('click', () => {
+            this.close()});
+
+        //добавляем слушатель клика по оверлею
+        this.popupSelector.addEventListener('click', evt => {
             if (evt.target === evt.currentTarget) {
-                close();
+                this.close();
             }
         });
 

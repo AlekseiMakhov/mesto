@@ -1,16 +1,19 @@
-export default class UserInfo {
-    constructor ( {nameFielsSelector, aboutFieldSelector} ) {
-        this._nameFielsSelector = nameFielsSelector;
+import { nameInfo, aboutInfo } from '../utils/constants.js';
+
+export class UserInfo {
+
+    constructor ( {nameFieldSelector, aboutFieldSelector} ) {
+        this._nameFieldSelector = nameFieldSelector;
         this._aboutFieldSelector = aboutFieldSelector;
     }
 
-    getUserInfo ( name, about ) {
-        name = this._nameFielsSelector.textContent;
-        about = this._aboutFieldSelector.textContent;
+    getUserInfo() {
+        this._nameFieldSelector.value = nameInfo.textContent;
+        this._aboutFieldSelector.value = aboutInfo.textContent;
     }
 
-    setUserInfo ( name, about, nameText, aboutText ) {
-        nameText.textContent = name;
-        aboutText.textContent = about;
+    setUserInfo() {
+        nameInfo.textContent = this._nameFieldSelector.value;
+        aboutInfo.textContent = this._aboutFieldSelector.value;
     }
 }

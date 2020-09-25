@@ -25,6 +25,8 @@ export const initialCards = [
     }
 ]; // массив карточек для добавления при загрузке страницы
 
+
+//объект элементов для валидации форм
 export const validationElements = {
     inputSelector: '.popup-form__text-input',
     submitButtonSelector: '.popup-form__submit-button',
@@ -34,8 +36,8 @@ export const validationElements = {
 }
 
 export const imageAddPopup = document.querySelector('#add-image');                             //всплывающее окно формы добавления карточки
-export const submitButton = '.popup-form__submit-button';                                      //селектор кнопки подтверждения формы
-export const imageLinkInput = '#link-input';                                                   //поле ввода ссылки
+export const imageNameInput = document.querySelector('#image-input');                          //поле ввода названия картинки
+export const imageLinkInput = document.querySelector('#link-input');                           //поле ввода ссылки
 export const addPlaceButton = document.querySelector('.add-image-button');                     //кнопка добавления карточки
 export const cardTempElement = document.querySelector('#place-card').content;                  //элемент с содержимым шаблона для карточки
 export const imageViewPopup = document.querySelector('#view-image');                           //всплывающее окно с увеличенным изображением
@@ -49,3 +51,5 @@ export const image = '.popup-image__image';                                     
 export const title = '.popup-image__title';                                                    //селектор названия картинки
 export const formSelector = '.popup-form';                                                     //селектор формы
 export const formArray = Array.from(document.querySelectorAll('.popup-form'));                 //массив из всех форм на страниц
+export const containerSelector = document.querySelector('.elements');                          //контейнер для карточек
+export const openedPopupMod = 'popup_opened';                                                  //модификатор открытого попапа

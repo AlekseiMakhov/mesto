@@ -1,38 +1,28 @@
 import { Popup } from './Popup.js';
 
-export default class PopupWithForm extends Popup {
+export class PopupWithForm extends Popup {
     constructor (popupSelector, {submitForm}) {
-        this._popupSelector = popupSelector;
+        super (popupSelector);
         this._submitForm = submitForm;
+        this._currentForm = this.popupSelector.querySelector('.popup-form');
     }
-
-    _getInputValues () {
-        const formInputValues = {};
-        const inputList = Array.from(this._popupSelector.querySelectorAll('popup-form__text-input'));
-        inputList.forEach(inputField => {
-            formInputValues =+ inputField.value;
+    //эта функция реализована на будущее, пока не задействована
+    _getInputValues() {
+        this._formInputValues = {};
+        this._inputList = Array.from(this._popupSelector.querySelectorAll('popup-form__text-input'));
+        this._inputList.forEach(inputField => {
+            this._formInputValues[inputField.name] = inputField.value;
         })
-        return formInputValues;
+        return this._formInputValues;
     }
-
-    close () {
-        const currentForm = this._popupSelector.querySelector('.popup-form');
-        currentForm.reset();
-        this._popupSelector.classList.remove('opened_popup');
-        document.removeEventListener('keydown', this._handleESCclose);
+    //переопределяем закрытие, добавляем сброс полей формы
+    close() {
+        this._currentForm.reset();
+        super.close();
     }
-
+    //переопределяем установщик слушателей, добавляем событие подтверждения формы
     setEventListeners() {
-        const closeButton = this._popupSelector.querySelector(`.${this._popupSelector.firstElementChild.getAttribute('class')}__close-button`);
-        closeButton.addEventListener('click', closeButton.close.bind(this.closeButton));
-
-        this._popupSelector.addEventListener('click', evt => {
-            if (evt.target === evt.currentTarget) {
-                close();
-            }
-        });
-
-        const submitButton = this._popupSelector.querySelector('.submit__button');
-        submitButton.addEventListener('submit', this._submitForm);
+        this._currentForm.addEventListener('submit', this._submitForm);
+        super.setEventListeners();
     }
 }

@@ -61,9 +61,6 @@ export class FormValidator {
     
     // Функция отменяет стандартное поведение, вызывает функцию установки обработчиков событий
     enableValidation = () => {
-        this._formElement.addEventListener('submit', evt => {
-            evt.preventDefault(); 
-        });
         this._setEventListeners();
     }
 }
