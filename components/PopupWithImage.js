@@ -12,11 +12,4 @@ export class PopupWithImage extends Popup {
         this.popupSelector.querySelector(image).alt = `${image_title}. Фото`;
         super.open();
     } 
-    //переопределяем метод закрытия, чтобы обнулить все элементы
-    // close() {
-    //     this.popupSelector.querySelector(image).src = '';
-    //     this.popupSelector.querySelector(title).textContent = '';
-    //     this.popupSelector.querySelector(image).alt = '';
-    //     super.close();
-    // }
 }
