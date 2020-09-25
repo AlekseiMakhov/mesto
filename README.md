@@ -1,6 +1,6 @@
 # Проект 4: Место
 
-* [Ссылка на сайт на github pages](https://alekseimakhov.github.io/mesto/index.html)
+* [Ссылка на сайт на github pages](https://alekseimakhov.github.io/mesto/dist/index.html)
 
 ### Технологии
 
@@ -29,6 +29,14 @@
 4. Добавлен модуль data.js (это не по брифу), в который вынесено 2 объекта: initialCards, validationElements,
 5. Классы и объекты из модулей data.js, card.js, formValidator.js импортируются в index.js.
 
+##### Доработка в 8 спринте:
+
+1. Произведен рефакторинг кода в соответствии с требованиями 8 спринта,
+2. Добавлены классы Popup, PopupWithForm, PopupWithImage, Section, UserInfo,
+3. Применена технология мягкого связывания классов с использованием колбэк-функций,
+4. Все переменные перенесены в модуль constants.js,
+5. Установлен и настроен пакет Webpack,
+6. Проект собран в папку Dist с помощью плагинов Webpack.
 
 Отображение проверено в **Chrome, Firefox, Yandex, Safari**.
 html-код страницы проверен в валидаторе

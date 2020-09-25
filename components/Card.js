@@ -6,13 +6,13 @@ export class Card {                                                             
         this._handleCardClick = handleCardClick;
     }
 
-    _getTemplate = () => {
+    _getTemplate() {
         this._newCard = this._templateSelector.cloneNode(true);                     //клонированный template-тег карточки
         return this._newCard;
     }
 
     //Устанавливаем обработчики
-    _setEventListeners = (container) => {
+    _setEventListeners(container) {
         this._delButton = container.querySelector('.element__trash-button');        //кнопка удаления карточки
         this._likeButton = container.querySelector('.element__like');               //кнопка "лайк"
         this._image = container.querySelector('.element__image');                   //элемент картинки

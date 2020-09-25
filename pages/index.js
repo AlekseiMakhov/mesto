@@ -1,3 +1,5 @@
+import '../page/index.css';
+
 import { Card } from '../components/Card.js';                                                       //импорт из card.js
 import { FormValidator } from '../components/FormValidator.js';                                     //импорт из formValidator.js
 import { Section } from '../components/Section.js';                                                 //импорт из Section.js

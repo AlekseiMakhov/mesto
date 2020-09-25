@@ -10,25 +10,25 @@ export class FormValidator {
     }
 
     // Функция, которая добавляет класс с ошибкой
-    _showInputError = (inputElement, errorElement, validationMessage) => {
+    _showInputError(inputElement, errorElement, validationMessage) {
         inputElement.classList.add(this._inputErrorClass);
         errorElement.classList.add(this._errorClass);
         errorElement.textContent = validationMessage;
     };
     // Функция, которая удаляет класс с ошибкой
-    _hideInputError = (inputElement, errorElement) => {
+    _hideInputError(inputElement, errorElement) {
         inputElement.classList.remove(this._inputErrorClass);
         errorElement.classList.remove(this._errorClass);
         errorElement.textContent = '';
     };
     // Функция определения валидности ввода
-    _hasInvalidInput = (inputList) => {
+    _hasInvalidInput(inputList) {
         return inputList.some((inputElement) => {
             return !inputElement.validity.valid;
         })
     };
     // Функция изменения активности кнопки отправки формы
-    _toggleButtonState = (inputList, submitButton) => {
+    _toggleButtonState(inputList, submitButton) {
         if (this._hasInvalidInput(inputList)) {
             submitButton.classList.add(this._inactiveButtonClass);
             submitButton.setAttribute('disabled', '');
@@ -38,7 +38,7 @@ export class FormValidator {
         }
     };
     // Вызов функций показа/скрытия сообщения об ошибке ввода в зависимости от валидности ввода
-    _isValid = (inputElement) => {
+    _isValid(inputElement) {
         const errorElement = inputElement.parentElement.querySelector(`#${inputElement.id}-error`);
         if (!inputElement.validity.valid) {
             this._showInputError(inputElement, errorElement, inputElement.validationMessage);
@@ -47,7 +47,7 @@ export class FormValidator {
         }
     };
     // Установка обработчиков элементам ввода
-    _setEventListeners = () => {
+    _setEventListeners() {
         const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
         const submitButton = this._formElement.querySelector(this._submitButtonSelector);
         this._toggleButtonState(inputList, submitButton);
@@ -60,7 +60,7 @@ export class FormValidator {
     };
     
     // Функция отменяет стандартное поведение, вызывает функцию установки обработчиков событий
-    enableValidation = () => {
+    enableValidation() {
         this._setEventListeners();
     }
 }
