@@ -1,11 +1,11 @@
-import '../page/index.css';
+import './index.css';
 
-import { Card } from '../components/Card.js';                                                       //импорт из card.js
-import { FormValidator } from '../components/FormValidator.js';                                     //импорт из formValidator.js
-import { Section } from '../components/Section.js';                                                 //импорт из Section.js
-import { PopupWithForm } from '../components/PopupWithForm.js';                                     //импорт из PopupWithForm.js
-import { PopupWithImage } from '../components/PopupWithImage.js';                                   //импорт из PopupWithImage.js
-import { UserInfo } from '../components/UserInfo.js';                                               //импорт из UserInfo.js
+import { Card } from '../../components/Card.js';                                                       //импорт из card.js
+import { FormValidator } from '../../components/FormValidator.js';                                     //импорт из formValidator.js
+import { Section } from '../../components/Section.js';                                                 //импорт из Section.js
+import { PopupWithForm } from '../../components/PopupWithForm.js';                                     //импорт из PopupWithForm.js
+import { PopupWithImage } from '../../components/PopupWithImage.js';                                   //импорт из PopupWithImage.js
+import { UserInfo } from '../../components/UserInfo.js';                                               //импорт из UserInfo.js
 
 import {
     initialCards, 
