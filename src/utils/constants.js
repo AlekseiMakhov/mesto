@@ -53,5 +53,3 @@ export const formSelector = '.popup-form';                                      
 export const formArray = Array.from(document.querySelectorAll('.popup-form'));                 //массив из всех форм на страниц
 export const containerSelector = document.querySelector('.elements');                          //контейнер для карточек
 export const openedPopupMod = 'popup_opened';                                                  //модификатор открытого попапа
-export const userInfo = {};
-export const imageInfo = {};

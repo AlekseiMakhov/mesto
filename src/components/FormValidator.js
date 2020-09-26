@@ -50,7 +50,6 @@ export class FormValidator {
     _setEventListeners() {
         const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
         const submitButton = this._formElement.querySelector(this._submitButtonSelector);
-        this._toggleButtonState(inputList, submitButton);
         inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._toggleButtonState(inputList, submitButton);
@@ -59,7 +58,7 @@ export class FormValidator {
         });
     };
     
-    // Функция отменяет стандартное поведение, вызывает функцию установки обработчиков событий
+    //Включаем валидацию формы
     enableValidation() {
         this._setEventListeners();
     }

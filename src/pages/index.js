@@ -1,4 +1,4 @@
-import './index.css';
+//import './index.css';
 
 import { Card } from '../components/Card.js';                                                       //импорт из card.js
 import { FormValidator } from '../components/FormValidator.js';                                     //импорт из formValidator.js
@@ -20,21 +20,23 @@ import {
     editButton,
     formArray,
     containerSelector,
-    userInfo,
-    imageInfo
+    image,
+    title,
+    nameInput,
+    aboutInput
 } from '../utils/constants.js';                                                                     //импорт переменных из constants.js
 
-const userData = new UserInfo(nameInfo, aboutInfo);
-const imageView = new PopupWithImage(imageViewPopup);
-imageView.setEventListeners();
+const userData = new UserInfo(nameInfo, aboutInfo);                                                 //создаем экземпляр класса UserInfo
+const imageView = new PopupWithImage(imageViewPopup, image, title);                                 //создаем экземпляр класса PopupWithImage
 
+//создаем экземпляр класса Section
 const section = new Section(
     {items: initialCards, 
-    renderer: (item) => {
+    renderer: item => {
         const newCard = new Card(
             {name: item.name,
             link: item.link,
-            handleCardClick: () => imageView.open()},
+            handleCardClick: () => imageView.open(item)},
             cardTempElement);
         const card = newCard.getView();
         section.addItem(card);
@@ -43,13 +45,13 @@ const section = new Section(
     containerSelector
 );
 
-const imageAddForm = new PopupWithForm(imageAddPopup, 
+//создаем экземпляр класса PopupWithForm для формы добавления карточки
+const imageAddForm = new PopupWithForm(imageAddPopup,
     {submitForm: (imageInfo) => {
         const newCard = new Card(
             {name: imageInfo.name, 
             link: imageInfo.link,
-            handleCardClick: () => imageView.open()
-            },
+            handleCardClick: () => imageView.open(imageInfo)},
             cardTempElement);
         const card = newCard.getView();;   //создаем новый элемент-карточку
         section.addItem(card);
@@ -57,27 +59,32 @@ const imageAddForm = new PopupWithForm(imageAddPopup,
     }
 });
 
-const userDataForm = new PopupWithForm(profilePopup, 
-    {submitForm: (userInfo) => {   
+//создаем экземпляр класса PopupWithForm для формы редактирования профиля
+const userDataForm = new PopupWithForm(profilePopup,
+    {submitForm: (userInfo) => {
         userData.setUserInfo(userInfo);
         userDataForm.close();
     }
 });
 
+//при открытии формы редактирования пользователя читаем данные со страницы, заполняем поля ввода формы
 const openUserInfo = () => {
+    const userInfo = userData.getUserInfo();                                            
+    nameInput.value = userInfo.name;
+    aboutInput.value = userInfo.about;
     userDataForm.open();
-    userInfo = userData.getUserInfo();
 }
 
-section.renderItems();
-imageAddForm.setEventListeners();
+section.renderItems();                                                                              //вызов отрисовки карточек на странице
+//устанавливаем слушатели
+imageAddForm.setEventListeners();                                                       
 userDataForm.setEventListeners();
 imageView.setEventListeners();
 
 formArray.forEach(formElement => {
     const newValidator = new FormValidator(validationElements, formElement);   
-    newValidator.enableValidation();                                                    //включаем валидацию формы
+    newValidator.enableValidation();                                                                //включаем валидацию формы
 });
 
-addPlaceButton.addEventListener('click', () => {imageAddForm.open()});                  //Обработчик события для кнопки добавления карточки
+addPlaceButton.addEventListener('click', () => {imageAddForm.open()});                              //Обработчик события для кнопки добавления карточки
 editButton.addEventListener('click', openUserInfo);        

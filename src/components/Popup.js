@@ -21,8 +21,8 @@ export class Popup {
 
     //открытие попапа
     open() {
-        this.popupSelector.classList.add(openedPopupMod);                                                           //Добавляем ему модификатор
-        document.addEventListener('keydown', this._handleEscClose);                                      //добавляем открытому оену обработчик Escape
+        this.popupSelector.classList.add(openedPopupMod);                                                //Добавляем ему модификатор
+        document.addEventListener('keydown', this._handleEscClose);                                      //добавляем открытому окну обработчик Escape
     } 
 
     //установщик слушателей
