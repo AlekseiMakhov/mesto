@@ -6,7 +6,7 @@ export class PopupWithForm extends Popup {
         this._submitForm = submitForm;
         this._currentForm = this.popupSelector.querySelector('.popup-form');
     }
-    //эта функция реализована на будущее, пока не задействована
+    //эта функция собирает в объект данные полей формы
     _getInputValues() {
         this._formInputValues = {};
         this._inputList = Array.from(this._popupSelector.querySelectorAll('popup-form__text-input'));
@@ -21,8 +21,9 @@ export class PopupWithForm extends Popup {
         super.close();
     }
     //переопределяем установщик слушателей, добавляем событие подтверждения формы
-    setEventListeners() {
-        this._currentForm.addEventListener('submit', this._submitForm);
+    setEventListeners(evt) {
+        evt.preventDefault();
+        this._currentForm.addEventListener('submit', () => {this._submitForm(this._getInputValues())});
         super.setEventListeners();
     }
 }

@@ -3,13 +3,13 @@ import { openedPopupMod } from '../utils/constants.js';
 export class Popup {
     constructor (popupSelector) {
         this.popupSelector = popupSelector;
-        
+        this._handleEscClose = this._handleEscClose.bind(this);
     }
 
     //закрытие попапа
     close() {
         this.popupSelector.classList.remove(openedPopupMod);
-        document.removeEventListener('keydown', this._handleEscClose.bind(this));
+        document.removeEventListener('keydown', this._handleEscClose);
     }
 
     //обработка кнопки Escape
@@ -22,7 +22,7 @@ export class Popup {
     //открытие попапа
     open() {
         this.popupSelector.classList.add(openedPopupMod);                                                           //Добавляем ему модификатор
-        document.addEventListener('keydown', this._handleEscClose.bind(this));                                      //добавляем открытому оену обработчик Escape
+        document.addEventListener('keydown', this._handleEscClose);                                      //добавляем открытому оену обработчик Escape
     } 
 
     //установщик слушателей

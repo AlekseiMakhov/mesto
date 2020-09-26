@@ -25,7 +25,7 @@ export class Card {                                                             
             this._likeButton.classList.toggle('element__like_liked');
         });
         //Обработчик события для клика на картинку
-        this._image.addEventListener('click', this._handleCardClick);
+        this._image.addEventListener('click', () => { this._handleCardClick(this._name, this._link)});
     }
 
     //функция добавления новой карточки (возвращает DOM-объект для вставки в разметку)
