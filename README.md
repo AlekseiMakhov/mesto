@@ -1,4 +1,4 @@
-# Проект 4: Место
+# Проект: Место
 
 * [Ссылка на сайт на github pages](https://alekseimakhov.github.io/mesto/dist/index.html)
 
