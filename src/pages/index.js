@@ -1,4 +1,4 @@
-import './index.css';
+//import './index.css';
 
 import { Card } from '../components/Card.js';                                                       //импорт из card.js
 import { FormValidator } from '../components/FormValidator.js';                                     //импорт из formValidator.js
@@ -29,35 +29,36 @@ import {
 const userData = new UserInfo(nameInfo, aboutInfo);                                                 //создаем экземпляр класса UserInfo
 const imageView = new PopupWithImage(imageViewPopup, image, title);                                 //создаем экземпляр класса PopupWithImage
 
+//функция создания новой карточки
+const createCard = (data) => {
+    const newCard = new Card(
+        {
+            name: data.name,
+            link: data.link,
+            handleCardClick: () => imageView.open(data)
+        },
+        cardTempElement);
+    return newCard.getView();
+}
+
 //создаем экземпляр класса Section
 const section = new Section(
-    {items: initialCards, 
-    renderer: item => {
-        const newCard = new Card(
-            {name: item.name,
-            link: item.link,
-            handleCardClick: () => imageView.open(item)},
-            cardTempElement);
-        const card = newCard.getView();
-        section.addItem(card);
-        }
+    {
+        items: initialCards, 
+        renderer: item => section.addItem(createCard(item))
     },
     containerSelector
 );
 
 //создаем экземпляр класса PopupWithForm для формы добавления карточки
 const imageAddForm = new PopupWithForm(imageAddPopup,
-    {submitForm: (imageInfo) => {
-        const newCard = new Card(
-            {name: imageInfo.name, 
-            link: imageInfo.link,
-            handleCardClick: () => imageView.open(imageInfo)},
-            cardTempElement);
-        const card = newCard.getView();;   //создаем новый элемент-карточку
-        section.addItem(card);
-        imageAddForm.close();
+    {
+        submitForm: imageInfo => {
+            section.addItem(createCard(imageInfo));
+            imageAddForm.close();
+        }
     }
-});
+);
 
 //создаем экземпляр класса PopupWithForm для формы редактирования профиля
 const userDataForm = new PopupWithForm(profilePopup,
