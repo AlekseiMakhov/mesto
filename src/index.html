@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Место</title>
-    <!--<link rel="stylesheet" href="./pages/index.css"> -->
+<!-- комментируем для сборки-->
+    <link rel="stylesheet" href="./pages/index.css"> 
 </head>
 <body class="page">
     <header class="header">
@@ -58,6 +59,24 @@
         </form>
     </section>
 
+    <section id="edit-avatar" class="popup">
+        <form class="popup-form" name="edit-avatar-form">
+            <button type="button" name="Закрыть" class="popup-form__close-button"></button>
+            <h3 class="popup-form__title">Обновить аватар</h3>
+            <input name="link" id="link-input" type="url" class="popup-form__text-input" placeholder="Ссылка на картинку" required>
+            <span id="link-input-error" class="popup-form__error-text"></span>
+            <button type="submit" name="Сохранить" class="popup-form__submit-button popup-form__submit-button_disabled" disabled>Сохранить</button>
+        </form>
+    </section>
+
+    <section id="delete-card" class="popup">
+        <form class="popup-form" name="delete-card-form">
+            <button type="button" name="Закрыть" class="popup-form__close-button"></button>
+            <h3 class="popup-form__title">Вы уверены?</h3>
+            <button type="submit" name="Сохранить" class="popup-form__submit-button">Да</button>
+        </form>
+    </section>
+
     <section id="view-image" class="popup popup_type_dark">
         <div class="popup-image">
             <button type="button" name="Закрыть" class="popup-image__close-button"></button>
@@ -72,11 +91,14 @@
             <img class="element__image" src="#" alt="Фото">
             <button type="button" class="element__trash-button"></button>
             <h3 class="element__text">Место</h3>
-            <button type="button" class="element__like"></button>
+            <div class="like">
+                <button type="button" class="like__button"></button>
+                <p class="like__count">7656</p>
+            </div>
         </div>
     </template>
 
-    <!-- комментируем для сборки
+    <!-- комментируем для сборки-->
     <script type="module" src="./utils/constants.js"></script>
     <script type="module" src="./components/UserInfo.js"></script>
     <script type="module" src="./components/Section.js"></script>
@@ -85,6 +107,6 @@
     <script type="module" src="./components/Popup.js"></script>
     <script type="module" src="./components/FormValidator.js"></script>
     <script type="module" src="./components/Card.js"></script>
-    <script type="module" src="./pages/index.js"></script> -->
+    <script type="module" src="./pages/index.js"></script> 
 </body>
 </html>

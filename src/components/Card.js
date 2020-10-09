@@ -14,7 +14,7 @@ export class Card {                                                             
     //Устанавливаем обработчики
     _setEventListeners(container) {
         this._delButton = container.querySelector('.element__trash-button');        //кнопка удаления карточки
-        this._likeButton = container.querySelector('.element__like');               //кнопка "лайк"
+        this._likeButton = container.querySelector('.like__button');                //кнопка "лайк"
         this._image = container.querySelector('.element__image');                   //элемент картинки
         //Обработчик кнопки удаления карточки
         this._delButton.addEventListener('click', () => {
@@ -22,7 +22,7 @@ export class Card {                                                             
         });
         //Обработчик события для кнопки "лайк"
         this._likeButton.addEventListener('click', () => {
-            this._likeButton.classList.toggle('element__like_liked');
+            this._likeButton.classList.toggle('like__button_pressed');
         });
         //Обработчик события для клика на картинку
         this._image.addEventListener('click', () => { this._handleCardClick(this._name, this._link)});
