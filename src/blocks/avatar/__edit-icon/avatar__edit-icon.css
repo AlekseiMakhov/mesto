@@ -1,0 +1,9 @@
+.avatar__edit-icon {
+    background-image: url(../../../images/edit_icon.svg);
+    position: absolute;
+    height: 26px;
+    width: 26px;
+    top: 47px;
+    left: 47px;
+    visibility: hidden;
+}
