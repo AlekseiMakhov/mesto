@@ -7,7 +7,7 @@ import { PopupWithForm } from '../components/PopupWithForm.js';                 
 import { PopupWithImage } from '../components/PopupWithImage.js';                                   //импорт из PopupWithImage.js
 import { UserInfo } from '../components/UserInfo.js';                                               //импорт из UserInfo.js
 import { Api } from '../components/Api.js';                                                         //импорт из Api.js
-import { Popup } from '../components/Popup.js';                                                         //импорт из Popup.js
+import { PopupForSubmit } from '../components/PopupForSubmit.js';                                   //импорт из PopupForSubmit.js
 
 import {
     validationElements,
@@ -28,12 +28,12 @@ import {
     avatarEditIcon,
     avatarEditPopup,
     avatarImg,
-    cardDeletePopup,
-    cardDeleteForm
+    cardDeletePopup
 } from '../utils/constants.js';                                                                     //импорт переменных из constants.js
 
 const imageView = new PopupWithImage(imageViewPopup, image, title);                                 //создаем экземпляр класса PopupWithImage
-
+imageView.setEventListeners();
+//создаем экземпляр класса Api
 const api = new Api ({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-16',
     headers: {
@@ -58,13 +58,12 @@ function getInfo() {
         })
         .catch((err) => {console.log(err)});
 }
-
+//Вызываем функцию при загрузке страницы
 getInfo();                                                                                          
-
+//Функция выводит заданный текст на кнопку формы
 function saving(element, text) {
     element.textContent = text;
 }
-
 //создаем экземпляр класса PopupWithForm для формы редактирования профиля
 const userDataForm = new PopupWithForm(profilePopup, {
     submitForm: (userInfo) => {
@@ -72,13 +71,12 @@ const userDataForm = new PopupWithForm(profilePopup, {
         saving(submitButton, 'Сохранеие...');
         api.editProfileInfo(userInfo.name, userInfo.about)
         .then()
-        .catch((err) => {console.log(err)})
+        .catch(err => console.log(err))
         .finally(saving(submitButton, 'Сохранить'));
         getInfo();
         userDataForm.close();
     }
 });
-
 //при открытии формы редактирования пользователя читаем данные со страницы, заполняем поля ввода формы
 const openUserInfoForm = () => {                                           
     nameInput.value = nameInfo.textContent;
@@ -86,34 +84,30 @@ const openUserInfoForm = () => {
     userDataForm.open();
 }
 userDataForm.setEventListeners();
-
+//Создаем экземпляр класса для редактирования аватара
 const avatarEditForm = new PopupWithForm(avatarEditPopup, {
     submitForm: () => {
         const submitButton = profilePopup.querySelector(validationElements.submitButtonSelector);
         saving(submitButton, 'Сохранеие...');
         api.editAvatar(avatarEditPopup.querySelector('#avatar').value)
         .then()
-        .catch((err) => {console.log(err)})
+        .catch(err => console.log(err))
         .finally(saving(submitButton, 'Сохранить'));
         getInfo();
         avatarEditForm.close();
     }
 });
 avatarEditForm.setEventListeners();
-
-const cardDeleteSubmit = new Popup(cardDeletePopup);
-
-cardDeleteSubmit.setEventListeners();
-
-cardDeleteSubmit.submitDelete = (cardId) => { 
-    cardDeleteSubmit.open();
-    cardDeleteForm.addEventListener('submit', evt => {
-        evt.preventDefault();
-        document.getElementById(cardId).remove();
-        api.deleteCard(cardId);
+//Создаем экземпляр класса для подтверждения удаления карточки
+const cardDeleteSubmit = new PopupForSubmit(cardDeletePopup, {
+    submitForm: cardId => {
+        api.deleteCard(cardId)
+            .then(document.getElementById(cardId).remove())
+            .catch(err => console.log(err));
         cardDeleteSubmit.close();
-    });
-}    
+    }
+});
+cardDeleteSubmit.setEventListeners(); 
 
 //функция создания новой карточки
 const createCard = (item) => {
@@ -125,19 +119,16 @@ const createCard = (item) => {
         cardTempElement,
         () => api.setLike(item._id),
         () => api.removeLike(item._id),
-        () => cardDeleteSubmit.submitDelete(item._id)
+        () => cardDeleteSubmit.open(item._id)
     );
     return newCard.getView();
 }
-
+//считываем информацию о созданных карточках
 api.getInitialCards()
     .then((items) => {
         section.renderItems(items)
     })
-    .catch((err) => {
-        console.log(err)
-    });
-
+    .catch(err => console.log(err));
 //создаем экземпляр класса Section
 const section = new Section(
     {  
@@ -147,7 +138,6 @@ const section = new Section(
     },
     containerSelector
 ); 
-
 //создаем экземпляр класса PopupWithForm для формы добавления карточки
 const imageAddForm = new PopupWithForm(imageAddPopup,
     {
@@ -156,24 +146,19 @@ const imageAddForm = new PopupWithForm(imageAddPopup,
                 .then((data) => {
                     section.addItem(createCard(data))
                 })
-                .catch((err) => {
-                    console.log(err)
-                });
+                .catch(err => console.log(err));
             imageAddForm.close();
         }
     }
 );
-
-// //устанавливаем слушатели
 imageAddForm.setEventListeners();                                                       
-
-imageView.setEventListeners();
 
 formArray.forEach(formElement => {
     const newValidator = new FormValidator(validationElements, formElement);   
     newValidator.enableValidation();                                                                //включаем валидацию формы
 });
 
+// //устанавливаем слушатели
 addPlaceButton.addEventListener('click', () => {imageAddForm.open()});                              //Обработчик события для кнопки добавления карточки
 editButton.addEventListener('click', openUserInfoForm);        
 avatarEditIcon.addEventListener('click', () => {avatarEditForm.open()});

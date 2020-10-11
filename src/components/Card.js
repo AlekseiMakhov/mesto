@@ -42,7 +42,7 @@ export class Card {                                                             
         this._image.addEventListener('click', () => this._handleCardClick(this._name, this._link));
     }
 
-    //функция добавления новой карточки (возвращает DOM-объект для вставки в разметку)
+    //функция возвращает элемент для вставки в разметку
     getView() {
         const сard = this._getTemplate();                                       //клонируем шаблон
         this._setEventListeners(); 
@@ -55,11 +55,11 @@ export class Card {                                                             
         сard.querySelector('.element__text').textContent = this._name;
         сard.querySelector('.like__count').textContent = this._likes.length;
 
-        if (this._likes.find((card) => card._id === this._me)) {
+        if (this._likes.find((card) => card._id === this._me)) {                //проверяем, ставил ли я лайк в карточке
             сard.querySelector('.like__button').classList.add('like__button_pressed');
         }
         
-        if (this._owner === this._me) {
+        if (this._owner === this._me) {                                         //проверяем, кто создал карточку
             сard.querySelector('.element__trash-button').classList.add('element__trash-button_visible');
         }
 

@@ -57,4 +57,3 @@ export const openedPopupMod = 'popup_opened';                                   
 export const avatarImg = document.querySelector('.avatar__img');                               //Аватар (фото)
 export const avatarEditIcon = document.querySelector('.avatar');                               //Аватар
 export const cardDeletePopup = document.querySelector('#delete-card');                         //всплывающее окно подтверждения удаления карточки
-export const cardDeleteForm = cardDeletePopup.querySelector('.popup-form');                    //форма удаления карточки
