@@ -1,8 +1,7 @@
 @import url(./__edit-icon/avatar__edit-icon.css);
-@import url(./__img/avatar-img.css);
+@import url(./__img/avatar__img.css);
 
 .avatar {
-    display: flex;
     position: relative;
     cursor: pointer;
 }

@@ -38,6 +38,5 @@ export class Popup {
                 this.close();
             }
         });
-
     }
 }

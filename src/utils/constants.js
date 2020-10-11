@@ -36,6 +36,7 @@ export const validationElements = {
 }
 
 export const imageAddPopup = document.querySelector('#add-image');                             //всплывающее окно формы добавления карточки
+export const avatarEditPopup = document.querySelector('#edit-avatar');                         //всплывающее окно формы редактирования аватара
 export const imageNameInput = document.querySelector('#image-input');                          //поле ввода названия картинки
 export const imageLinkInput = document.querySelector('#link-input');                           //поле ввода ссылки
 export const addPlaceButton = document.querySelector('.add-image-button');                     //кнопка добавления карточки
@@ -53,3 +54,7 @@ export const formSelector = '.popup-form';                                      
 export const formArray = Array.from(document.querySelectorAll('.popup-form'));                 //массив из всех форм на страниц
 export const containerSelector = document.querySelector('.elements');                          //контейнер для карточек
 export const openedPopupMod = 'popup_opened';                                                  //модификатор открытого попапа
+export const avatarImg = document.querySelector('.avatar__img');                               //Аватар (фото)
+export const avatarEditIcon = document.querySelector('.avatar');                               //Аватар
+export const cardDeletePopup = document.querySelector('#delete-card');                         //всплывающее окно подтверждения удаления карточки
+export const cardDeleteForm = cardDeletePopup.querySelector('.popup-form');                    //форма удаления карточки
