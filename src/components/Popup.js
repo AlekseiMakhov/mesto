@@ -1,14 +1,13 @@
-import { openedPopupMod } from '../utils/constants.js';
-
 export class Popup {
     constructor (popupSelector) {
         this.popupSelector = popupSelector;
         this._handleEscClose = this._handleEscClose.bind(this);
+        this._openedPopupMod = 'popup_opened';
     }
 
     //закрытие попапа
     close() {
-        this.popupSelector.classList.remove(openedPopupMod);
+        this.popupSelector.classList.remove(this._openedPopupMod);
         document.removeEventListener('keydown', this._handleEscClose);
     }
 
@@ -21,7 +20,7 @@ export class Popup {
 
     //открытие попапа
     open() {
-        this.popupSelector.classList.add(openedPopupMod);                                                //Добавляем ему модификатор
+        this.popupSelector.classList.add(this._openedPopupMod);                                                //Добавляем ему модификатор
         document.addEventListener('keydown', this._handleEscClose);                                      //добавляем открытому окну обработчик Escape
     } 
 

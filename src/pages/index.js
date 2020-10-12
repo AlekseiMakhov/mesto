@@ -1,5 +1,5 @@
 //раскомментировать для сборки
-import './index.css';
+// import './index.css';
 
 import { Card } from '../components/Card.js';                                                       //импорт из card.js
 import { FormValidator } from '../components/FormValidator.js';                                     //импорт из formValidator.js
@@ -10,27 +10,32 @@ import { UserInfo } from '../components/UserInfo.js';                           
 import { Api } from '../components/Api.js';                                                         //импорт из Api.js
 import { PopupForSubmit } from '../components/PopupForSubmit.js';                                   //импорт из PopupForSubmit.js
 
-import {
-    validationElements,
-    imageAddPopup,
-    addPlaceButton,
-    cardTempElement,
-    imageViewPopup,
-    profilePopup,
-    nameInfo,
-    aboutInfo,
-    editButton,
-    formArray,
-    containerSelector,
-    image,
-    title,
-    nameInput,
-    aboutInput,
-    avatarEditIcon,
-    avatarEditPopup,
-    avatarImg,
-    cardDeletePopup
-} from '../utils/constants.js';                                                                     //импорт переменных из constants.js
+const imageAddPopup = document.querySelector('#add-image');                                         //всплывающее окно формы добавления карточки
+const avatarEditPopup = document.querySelector('#edit-avatar');                                     //всплывающее окно формы редактирования аватара
+const addPlaceButton = document.querySelector('.add-image-button');                                 //кнопка добавления карточки
+const cardTempElement = document.querySelector('#place-card').content;                              //элемент с содержимым шаблона для карточки
+const imageViewPopup = document.querySelector('#view-image');                                       //всплывающее окно с увеличенным изображением
+const profilePopup = document.querySelector('#profile-info__edit');                                 //всплывающее окно формы редактирования профиля
+const nameInfo = document.querySelector('.profile-info__name');                                     //инфо профиля "Имя"
+const aboutInfo = document.querySelector('.profile-info__description');                             //инфо профиля "О себе"
+const nameInput = profilePopup.querySelector('#name-input');                                        //поле ввода имени
+const aboutInput = profilePopup.querySelector('#about-input');                                      //поле ввода описания
+const editButton = document.querySelector('.profile-info__edit-button');                            //кнопка редактирования профиля
+const image = '.popup-image__image';                                                                //селектор картинки
+const title = '.popup-image__title';                                                                //селектор названия картинки
+const formArray = Array.from(document.querySelectorAll('.popup-form'));                             //массив из всех форм на страниц
+const containerSelector = document.querySelector('.elements');                                      //контейнер для карточек
+const openedPopupMod = 'popup_opened';                                                              //модификатор открытого попапа
+const avatarImg = document.querySelector('.avatar__img');                                           //Аватар (фото)
+const avatarEditIcon = document.querySelector('.avatar');                                           //Аватар
+const cardDeletePopup = document.querySelector('#delete-card');                                     //всплывающее окно подтверждения удаления карточки
+
+
+
+
+import { validationElements } from '../utils/constants.js';                                         //импорт переменных из constants.js
+
+let userId = '';                                                                                    //переменная для id
 
 const imageView = new PopupWithImage(imageViewPopup, image, title);                                 //создаем экземпляр класса PopupWithImage
 imageView.setEventListeners();
@@ -51,31 +56,23 @@ const userInfoObj = {
 
 const userData = new UserInfo(userInfoObj);                                                         //создаем экземпляр класса UserInfo
 
-//получение информации о пользователе с сервера
-function getInfo() {
-    api.getProfileInfo()
-        .then((res) => {
-            userData.getUserInfo(res);
-        })
-        .catch((err) => {console.log(err)});
-}
-//Вызываем функцию при загрузке страницы
-getInfo();                                                                                          
 //Функция выводит заданный текст на кнопку формы
-function saving(element, text) {
+function setSavingText(element, text) {
     element.textContent = text;
 }
 //создаем экземпляр класса PopupWithForm для формы редактирования профиля
 const userDataForm = new PopupWithForm(profilePopup, {
     submitForm: (userInfo) => {
         const submitButton = profilePopup.querySelector(validationElements.submitButtonSelector);
-        saving(submitButton, 'Сохранеие...');
-        api.editProfileInfo(userInfo.name, userInfo.about)
-        .then()
-        .catch(err => console.log(err))
-        .finally(saving(submitButton, 'Сохранить'));
-        getInfo();
-        userDataForm.close();
+        setSavingText(submitButton, 'Сохранеие...');
+        api.editProfileInfo(userInfo)
+            .then((data) => {
+                userInfoObj.nameInfoElement.textContent = data.name;
+                userInfoObj.aboutInfoElement.textContent = data.about;
+                userDataForm.close();
+            })
+            .catch(err => console.log(err))
+            .finally(setSavingText(submitButton, 'Сохранить'));
     }
 });
 //при открытии формы редактирования пользователя читаем данные со страницы, заполняем поля ввода формы
@@ -89,47 +86,52 @@ userDataForm.setEventListeners();
 const avatarEditForm = new PopupWithForm(avatarEditPopup, {
     submitForm: () => {
         const submitButton = profilePopup.querySelector(validationElements.submitButtonSelector);
-        saving(submitButton, 'Сохранеие...');
+        setSavingText(submitButton, 'Сохранеие...');
         api.editAvatar(avatarEditPopup.querySelector('#avatar').value)
-        .then()
-        .catch(err => console.log(err))
-        .finally(saving(submitButton, 'Сохранить'));
-        getInfo();
-        avatarEditForm.close();
+            .then((data) => {
+                userInfoObj.avatarElement.src = data.avatar;
+                avatarEditForm.close()
+            })
+            .catch(err => console.log(err))
+            .finally(setSavingText(submitButton, 'Сохранить'));
     }
 });
 avatarEditForm.setEventListeners();
 //Создаем экземпляр класса для подтверждения удаления карточки
 const cardDeleteSubmit = new PopupForSubmit(cardDeletePopup, {
-    submitForm: cardId => {
-        api.deleteCard(cardId)
-            .then(document.getElementById(cardId).remove())
-            .catch(err => console.log(err));
-        cardDeleteSubmit.close();
+    submitForm: (element, item) => {
+        api.deleteCard(item._id)
+            .then(() => {
+                item.removeElement(element);
+                cardDeleteSubmit.close();
+            })    
+            .catch((err) => console.log(err));
     }
 });
 cardDeleteSubmit.setEventListeners(); 
-
 //функция создания новой карточки
 const createCard = (item) => {
     const newCard = new Card(
         {
             data: item,
-            handleCardClick: () => imageView.open(item)
+            handleCardClick: () => imageView.open(item) 
         },
+        userId,
         cardTempElement,
-        () => api.setLike(item._id),
-        () => api.removeLike(item._id),
-        () => cardDeleteSubmit.open(item._id)
-    );
+       
+        (item, element) => { api.setLike(item._id)
+            .then((res) => { item.updateLikes(true, element, res.likes)})
+            .catch((err) => console.log(err));
+        },
+        (item, element) => { api.removeLike(item._id)
+            .then((res) => { item.updateLikes(false, element, res.likes)})
+            .catch((err) => console.log(err))
+        },
+        (element, item) => cardDeleteSubmit.open(element, item))
+    
     return newCard.getView();
 }
-//считываем информацию о созданных карточках
-api.getInitialCards()
-    .then((items) => {
-        section.renderItems(items)
-    })
-    .catch(err => console.log(err));
+
 //создаем экземпляр класса Section
 const section = new Section(
     {  
@@ -146,19 +148,31 @@ const imageAddForm = new PopupWithForm(imageAddPopup,
             api.createNewCard(imageInfo)
                 .then((data) => {
                     section.addItem(createCard(data))
+                    imageAddForm.close();
                 })
                 .catch(err => console.log(err));
-            imageAddForm.close();
         }
     }
 );
-imageAddForm.setEventListeners();                                                       
+imageAddForm.setEventListeners();  
+
+Promise.all([     
+    api.getProfileInfo(),
+    api.getInitialCards()
+    ])
+    .then((values) => {    
+        userData.getUserInfo(values[0]);
+        userId = values[0]._id;                                                                 //записываем свой id в переменную
+        section.renderItems(values[1].reverse());
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 
 formArray.forEach(formElement => {
     const newValidator = new FormValidator(validationElements, formElement);   
     newValidator.enableValidation();                                                                //включаем валидацию формы
 });
-
 // //устанавливаем слушатели
 addPlaceButton.addEventListener('click', () => {imageAddForm.open()});                              //Обработчик события для кнопки добавления карточки
 editButton.addEventListener('click', openUserInfoForm);        

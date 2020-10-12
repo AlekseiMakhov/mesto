@@ -10,13 +10,14 @@ export class PopupForSubmit extends Popup {
     setEventListeners() {
         this.popupSelector.addEventListener('submit', evt => {
             evt.preventDefault();
-            this._submitForm(this._data);
+            this._submitForm(this._element, this._classElement);
         });
         super.setEventListeners();
     }
     //переопределяем открытие попапа
-    open(data) {
-        this._data = data;
+    open(element, classElement) {
+        this._classElement = classElement;
+        this._element = element;
         super.open();
     }
 }

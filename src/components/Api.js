@@ -12,13 +12,13 @@ export class Api {
         return Promise.reject(`Ошибка ${res.status} - ${res.statusText}`)
     }
     //редактирование профиля
-    editProfileInfo(userName, userAbout) {
+    editProfileInfo(data) {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                name: userName,
-                about: userAbout
+                name: data.name,
+                about: data.about
             })
         })
         .then(this._resolveCheck)
@@ -67,8 +67,7 @@ export class Api {
             method: 'PUT',
             headers: this._headers
         })
-        .then(this._resolveCheck)
-        .then();
+        .then(this._resolveCheck);
     }
     //удаляем лайк
     removeLike(cardId) {
@@ -76,8 +75,7 @@ export class Api {
             method: 'DELETE',
             headers: this._headers,
         })
-        .then(this._resolveCheck)
-        .then();
+        .then(this._resolveCheck);
     }
     //запрос массива карточек
     getInitialCards() {
