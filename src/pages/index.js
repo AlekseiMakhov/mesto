@@ -145,12 +145,15 @@ const section = new Section(
 const imageAddForm = new PopupWithForm(imageAddPopup,
     {
         submitForm: (imageInfo) => {
+            const submitButton = imageAddPopup.querySelector(validationElements.submitButtonSelector);
+            setSavingText(submitButton, 'Создание...');
             api.createNewCard(imageInfo)
                 .then((data) => {
                     section.addItem(createCard(data))
                     imageAddForm.close();
                 })
-                .catch(err => console.log(err));
+                .catch(err => console.log(err))
+                .finally(setSavingText(submitButton, 'Создать'));
         }
     }
 );
