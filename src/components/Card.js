@@ -19,32 +19,31 @@ export class Card {                                                             
     }
   
     //удаление карточки со страницы
-    removeElement(element) {
-        element.remove();
+    removeElement() {
+        this._delButton.parentElement.remove();
     }
-
-    updateLikes(isLiked, likeElement, likes) {
-        this._likeButton = likeElement.querySelector('.like__button');
+    //Обновляем число лайков и состояние кнопки
+    updateLikes(isLiked, likes) {
         if (isLiked) {
             this._likeButton.classList.add('like__button_pressed');
         } else {
             this._likeButton.classList.remove('like__button_pressed');
         }
-        likeElement.querySelector('.like__count').textContent = likes.length;
+        this._likeCount.textContent = likes.length;
     }
-
-    isLiked(likes, init, likeElement) {
+    //проверяем, стоит ли лайк 
+    isLiked(likes, init) {
         if (init) { 
             return (likes.find((item) => item._id === this._me));
         } 
-        return likeElement.querySelector('.like__button').classList.contains('like__button_pressed');
+        return this._likeButton.classList.contains('like__button_pressed');
     }
 
-    _handleLikeClick(item, element) {
-        if (this.isLiked(item._likes, false, element)) {
-            this._removeLike(item, element);
+    _handleLikeClick(item) {
+        if (this.isLiked(item._likes, false)) {
+            this._removeLike(item);
         } else {
-            this._setLike(item, element);
+            this._setLike(item);
         }
     }
 
@@ -54,31 +53,30 @@ export class Card {                                                             
         this._delButton = this._сard.querySelector('.element__trash-button');        //кнопка удаления карточки
         this._likeButton = this._сard.querySelector('.like__button');                //кнопка "лайк"
         this._image = this._сard.querySelector('.element__image');                   //элемент картинки
+        this._likeCount = this._сard.querySelector('.like__count');                  //Число лайков
 
-        this._delButton.addEventListener('click', evt => { 
-            this._deleteCard(evt.target.parentElement, this);
-        });    
-        this._likeButton.addEventListener('click', (evt) => this._handleLikeClick(this, evt.target.parentElement));
+        this._delButton.addEventListener('click', () => this._deleteCard(this));
+        this._likeButton.addEventListener('click', () => this._handleLikeClick(this));
         this._image.addEventListener('click', () => this._handleCardClick(this._name, this._link));
     }
 
     //функция возвращает элемент для вставки в разметку
     getView() {
-        const сard = this._getTemplate();                                       //клонируем шаблон
+        const card = this._getTemplate();                                       //клонируем шаблон
         this._setEventListeners();
-        const image = сard.querySelector('.element__image');                    //элемент карточки (изображение)    
+        const image = card.querySelector('.element__image');                    //элемент карточки (изображение)    
 
         //заполнение полей карточки
         image.src = this._link;
         image.alt = `${this._name}. Фото`;
-        сard.querySelector('.element').id = this._id;
-        сard.querySelector('.element__text').textContent = this._name;
-
-        this.updateLikes(this.isLiked(this._likes, true, null), сard, this._likes);
+        card.querySelector('.element').id = this._id;
+        card.querySelector('.element__text').textContent = this._name;
+        
+        this.updateLikes(this.isLiked(this._likes, true, null), this._likes);
         if (this._owner === this._me) {                                         //проверяем, кто создал карточку
-            сard.querySelector('.element__trash-button').classList.add('element__trash-button_visible');
+            card.querySelector('.element__trash-button').classList.add('element__trash-button_visible');
         }
 
-        return сard;                                                             //возвращаем карточку
+        return card;                                                             //возвращаем карточку
     }
 }

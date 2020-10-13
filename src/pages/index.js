@@ -25,13 +25,9 @@ const image = '.popup-image__image';                                            
 const title = '.popup-image__title';                                                                //селектор названия картинки
 const formArray = Array.from(document.querySelectorAll('.popup-form'));                             //массив из всех форм на страниц
 const containerSelector = document.querySelector('.elements');                                      //контейнер для карточек
-const openedPopupMod = 'popup_opened';                                                              //модификатор открытого попапа
 const avatarImg = document.querySelector('.avatar__img');                                           //Аватар (фото)
 const avatarEditIcon = document.querySelector('.avatar');                                           //Аватар
 const cardDeletePopup = document.querySelector('#delete-card');                                     //всплывающее окно подтверждения удаления карточки
-
-
-
 
 import { validationElements } from '../utils/constants.js';                                         //импорт переменных из constants.js
 
@@ -65,10 +61,9 @@ const userDataForm = new PopupWithForm(profilePopup, {
     submitForm: (userInfo) => {
         const submitButton = profilePopup.querySelector(validationElements.submitButtonSelector);
         setSavingText(submitButton, 'Сохранеие...');
-        api.editProfileInfo(userInfo)
+        api.editProfileInfo( { name: userInfo.name, about: userInfo.about } )
             .then((data) => {
-                userInfoObj.nameInfoElement.textContent = data.name;
-                userInfoObj.aboutInfoElement.textContent = data.about;
+                userData.setUserInfo( { userName: data.name, userDescription: data.about } )
                 userDataForm.close();
             })
             .catch(err => console.log(err))
@@ -76,20 +71,21 @@ const userDataForm = new PopupWithForm(profilePopup, {
     }
 });
 //при открытии формы редактирования пользователя читаем данные со страницы, заполняем поля ввода формы
-const openUserInfoForm = () => {                                           
-    nameInput.value = nameInfo.textContent;
-    aboutInput.value = aboutInfo.textContent;
+const openUserInfoForm = () => {                       
+    const userInfo = userData.getUserInfo();                    
+    nameInput.value = userInfo.userName;
+    aboutInput.value = userInfo.userDescription;
     userDataForm.open();
 }
 userDataForm.setEventListeners();
 //Создаем экземпляр класса для редактирования аватара
 const avatarEditForm = new PopupWithForm(avatarEditPopup, {
-    submitForm: () => {
+    submitForm: (userInfo) => {
         const submitButton = profilePopup.querySelector(validationElements.submitButtonSelector);
         setSavingText(submitButton, 'Сохранеие...');
-        api.editAvatar(avatarEditPopup.querySelector('#avatar').value)
+        api.editAvatar(userInfo.avatar)
             .then((data) => {
-                userInfoObj.avatarElement.src = data.avatar;
+                userData.setUserInfo( { userAvatar: data.avatar } )
                 avatarEditForm.close()
             })
             .catch(err => console.log(err))
@@ -99,7 +95,7 @@ const avatarEditForm = new PopupWithForm(avatarEditPopup, {
 avatarEditForm.setEventListeners();
 //Создаем экземпляр класса для подтверждения удаления карточки
 const cardDeleteSubmit = new PopupForSubmit(cardDeletePopup, {
-    submitForm: (element, item) => {
+    submitForm: (item) => {
         api.deleteCard(item._id)
             .then(() => {
                 item.removeElement(element);
@@ -119,15 +115,15 @@ const createCard = (item) => {
         userId,
         cardTempElement,
        
-        (item, element) => { api.setLike(item._id)
-            .then((res) => { item.updateLikes(true, element, res.likes)})
+        (item) => { api.setLike(item._id)
+            .then((res) => { item.updateLikes(true, res.likes)})
             .catch((err) => console.log(err));
         },
-        (item, element) => { api.removeLike(item._id)
-            .then((res) => { item.updateLikes(false, element, res.likes)})
+        (item) => { api.removeLike(item._id)
+            .then((res) => { item.updateLikes(false, res.likes)})
             .catch((err) => console.log(err))
         },
-        (element, item) => cardDeleteSubmit.open(element, item))
+        (item) => cardDeleteSubmit.open(item))
     
     return newCard.getView();
 }
@@ -161,9 +157,10 @@ Promise.all([
     api.getInitialCards()
     ])
     .then((values) => {    
-        userData.getUserInfo(values[0]);
-        userId = values[0]._id;                                                                 //записываем свой id в переменную
-        section.renderItems(values[1].reverse());
+        const [userInfo, cards] = values;
+        userData.setUserInfo({ userName: userInfo.name, userDescription: userInfo.about, userAvatar: userInfo.avatar });
+        userId = userInfo._id;                                                                 //записываем свой id в переменную
+        section.renderItems(cards.reverse());
     })
     .catch((err) => {
         console.log(err);
