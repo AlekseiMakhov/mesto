@@ -72,7 +72,7 @@ export class Card {                                                             
         card.querySelector('.element').id = this._id;
         card.querySelector('.element__text').textContent = this._name;
         
-        this.updateLikes(this.isLiked(this._likes, true, null), this._likes);
+        this.updateLikes(this.isLiked(this._likes, true), this._likes);
         if (this._owner === this._me) {                                         //проверяем, кто создал карточку
             card.querySelector('.element__trash-button').classList.add('element__trash-button_visible');
         }

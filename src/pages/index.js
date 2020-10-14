@@ -1,5 +1,5 @@
 //раскомментировать для сборки
-import './index.css';
+// import './index.css';
 
 import { Card } from '../components/Card.js';                                                       //импорт из card.js
 import { FormValidator } from '../components/FormValidator.js';                                     //импорт из formValidator.js
@@ -67,7 +67,7 @@ const userDataForm = new PopupWithForm(profilePopup, {
                 userDataForm.close();
             })
             .catch(err => console.log(err))
-            .finally(setSavingText(submitButton, 'Сохранить'));
+            .finally(() => {setSavingText(submitButton, 'Сохранить')});
     }
 });
 //при открытии формы редактирования пользователя читаем данные со страницы, заполняем поля ввода формы
@@ -81,7 +81,7 @@ userDataForm.setEventListeners();
 //Создаем экземпляр класса для редактирования аватара
 const avatarEditForm = new PopupWithForm(avatarEditPopup, {
     submitForm: (userInfo) => {
-        const submitButton = profilePopup.querySelector(validationElements.submitButtonSelector);
+        const submitButton = avatarEditPopup.querySelector(validationElements.submitButtonSelector);
         setSavingText(submitButton, 'Сохранеие...');
         api.editAvatar(userInfo.avatar)
             .then((data) => {
@@ -89,7 +89,7 @@ const avatarEditForm = new PopupWithForm(avatarEditPopup, {
                 avatarEditForm.close()
             })
             .catch(err => console.log(err))
-            .finally(setSavingText(submitButton, 'Сохранить'));
+            .finally(()=>{setSavingText(submitButton, 'Сохранить')});
     }
 });
 avatarEditForm.setEventListeners();
@@ -98,7 +98,7 @@ const cardDeleteSubmit = new PopupForSubmit(cardDeletePopup, {
     submitForm: (item) => {
         api.deleteCard(item._id)
             .then(() => {
-                item.removeElement(element);
+                item.removeElement();
                 cardDeleteSubmit.close();
             })    
             .catch((err) => console.log(err));
@@ -149,7 +149,7 @@ const imageAddForm = new PopupWithForm(imageAddPopup,
                     imageAddForm.close();
                 })
                 .catch(err => console.log(err))
-                .finally(setSavingText(submitButton, 'Создать'));
+                .finally(()=>{setSavingText(submitButton, 'Создать')});
         }
     }
 );
