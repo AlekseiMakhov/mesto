@@ -1,5 +1,5 @@
 //раскомментировать для сборки
-// import './index.css';
+import './index.css';
 
 import { Card } from '../components/Card.js';                                                       //импорт из card.js
 import { FormValidator } from '../components/FormValidator.js';                                     //импорт из formValidator.js
