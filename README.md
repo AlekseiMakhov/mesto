@@ -1,6 +1,6 @@
 # Проект: Место
 
-* [Ссылка на сайт на github pages](https://alekseimakhov.github.io/mesto/index.html)
+* [Ссылка на сайт на github pages](https://alekseimakhov.github.io/mesto/)
 
 ### Технологии
 
